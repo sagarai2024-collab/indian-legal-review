@@ -97,6 +97,13 @@ If it prints `FAIL` lines, fix `report.json` and run it again. Fix by correcting
 
 Show the user `report.md` only after the verifier passes. In chat, give the overall verdict, the RED findings in one line each, and whether to consult an advocate. Point to `report.md` for the rest.
 
+## Running on Windows and in Claude Code
+
+- Use `python` instead of `python3`; paths may use `\\` or `/`.
+- The scripts create `./legal-review/<stem>/` themselves; do not stop if it is missing.
+- If the permission mode blocks writing `report.json`, do not save it another way (for example through a shell command). Tell the user to answer "go ahead", or to restart with `claude --plugin-dir . --permission-mode acceptEdits`, and wait.
+- The full review takes about 3–5 minutes with Opus. Keep the user informed in one line per step, not with long JSON dumps.
+
 ## Hard limits
 
 - Do not draft, backdate, alter or "fix" a document to mislead anyone, evade stamp duty, or hide information from a party or a court.

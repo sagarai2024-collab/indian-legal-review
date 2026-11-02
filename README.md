@@ -57,6 +57,16 @@ pip install -r indian-legal-review/requirements.txt   # pyyaml, python-docx, jin
 claude --plugin-dir ./indian-legal-review
 ```
 
+## Quick start on Windows
+
+```powershell
+cd D:\path\to\indian-legal-review
+pip install -r requirements.txt
+python evals\test_draft.py                      # should print ALL PASSED
+claude --plugin-dir . --permission-mode acceptEdits "Use review-agreement to check evals\cases\life_rights_producer_heavy.txt"
+notepad legal-review\life_rights_producer_heavy\report.md
+```
+
 ## Evals
 
 ```bash

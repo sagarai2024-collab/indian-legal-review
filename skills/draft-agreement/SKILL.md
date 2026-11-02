@@ -49,6 +49,12 @@ On Windows, use `python` instead of `python3` in the commands below.
 5. **Check the draft against existing agreements.** If the author has signed earlier agreements about the same book, life story or characters (a publisher deal, a film rights deal, an agency agreement), review them first with the `review-agreement` skill. List in your reply every earlier clause that could conflict with the new draft (for example, an earlier grant of sequel or remake rights, a first-refusal right, or a perpetual exclusivity). The new agreement must not be signed until an advocate has resolved those conflicts.
 6. **Deliver.** Give the user `agreement.docx` and `notes.md`. In chat: one line on what the draft does, the number of blanks to agree, any floor overrides, and any conflicts with earlier agreements. Do not paste the agreement into chat.
 
+## Running on Windows and in Claude Code
+
+- Use `python` instead of `python3`. `build_agreement.py` creates `./drafts/<name>/` itself.
+- Open the result for the user with `notepad drafts\\<name>\\notes.md` or by double-clicking `agreement.docx`.
+- If writing files is blocked by the permission mode, ask the user to say "go ahead" or to restart with `--permission-mode acceptEdits`; never work around the block.
+
 ## Hard limits
 
 - Do not draft anything meant to deceive a party, a court or the tax or stamp authorities, or to backdate or alter a signed document.
