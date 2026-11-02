@@ -1,0 +1,173 @@
+# Author-protection rules: terms that are lawful but leave the author under-paid
+# or without control. Most are best practice rather than statutory. They come from
+# reviewing real author-publisher (2019) and life-rights/film (2021) agreements
+# where the author did not share in the film's success.
+
+rules:
+  - id: AP-01
+    title: Book publisher granted film, TV or other adaptation rights
+    applies_to: [publishing]
+    type: flag
+    detect: ['cinematograph', 'film rights', 'audio[- ]?visual', 'television', 'web[- ]?series', 'make adaptation', 'dramati[sz]ation rights', 'perform the work in public']
+    severity: RED
+    escalate: true
+    basis: statutory
+    citations: [{statute: copyright_act_1957, section: "14"}, {statute: copyright_act_1957, section: "19"}]
+    explain: Film, TV and adaptation rights are separate rights under s.14 and are usually worth far more than the book deal. A book publisher holding them can block or take a share of a later film deal, and the author may later breach a "no prior grant" warranty given to a producer.
+    recommend: Grant the publisher print, e-book (and, if agreed, audio) only. Reserve film, TV, OTT, stage, translation and merchandising rights to the author expressly.
+
+  - id: AP-02
+    title: No right for the author to audit accounts
+    applies_to: [publishing, film_option, film_assignment, screenwriter, life_rights]
+    type: missing
+    require_any: ['audit', 'inspect (?:the )?(?:books|accounts|records)', 'examine (?:the )?(?:books|accounts|records)']
+    severity: YELLOW
+    escalate: false
+    basis: best_practice
+    citations: []
+    explain: Without an audit right the author must accept the publisher's or producer's figures for sales, collections and receipts.
+    recommend: Add a yearly audit right through a chartered accountant, with the other side paying the cost if under-payment exceeds 5%.
+
+  - id: AP-03
+    title: Royalty statements only once a year, or paid long after the period ends
+    applies_to: [publishing, film_assignment, life_rights]
+    type: flag
+    detect: ['annual basis', 'once (?:a|every) year', 'yearly to the', 'accounts? .{0,40}(?:annually|yearly)']
+    severity: YELLOW
+    escalate: false
+    basis: best_practice
+    citations: []
+    explain: Annual statements delay payment by up to 18 months and make errors hard to catch.
+    recommend: Half-yearly statements showing copies printed, sold, returned and gifted per format, with payment within 30 days of each statement.
+
+  - id: AP-04
+    title: Money withheld or set off under other agreements
+    applies_to: [any]
+    type: flag
+    detect: ['under this or any other agreement', 'any other agreement between the parties', 'set[- ]?off', 'retain any sum', 'withhold .{0,40}(?:royalt|sum|payment)']
+    severity: YELLOW
+    escalate: false
+    basis: best_practice
+    citations: []
+    explain: Cross-agreement set-off lets the other side hold back royalties from one book against claims on another.
+    recommend: Limit any withholding to claims under this agreement, capped at the amount actually claimed, released within 6 months if no proceedings start.
+
+  - id: AP-05
+    title: Final creative or publishing decisions rest only with the publisher or producer
+    applies_to: [publishing, film_option, film_assignment, screenwriter, life_rights]
+    type: flag
+    detect: ['final (?:creative )?(?:control|decision|say|cut)', 'reserve the right to make the final decision', 'without (?:requirement of )?any approval from the (?:author|personality)']
+    severity: YELLOW
+    escalate: false
+    basis: best_practice
+    citations: []
+    explain: The author has no say over the title, cover, script, depiction or marketing of their own story.
+    recommend: Add written approval rights for title, cover, script and the depiction of real people, with deemed approval only after a fixed review period (e.g. 10 working days).
+
+  - id: AP-06
+    title: Only the author is barred from seeking an injunction
+    applies_to: [any]
+    type: flag
+    detect: ['not be entitled to (?:obtain |seek )?(?:any )?injunct', 'no injunctive relief', 'strictly limited to the right.{0,40}(?:money )?damages', 'damage.{0,60}will not be irreparable']
+    severity: YELLOW
+    escalate: true
+    basis: best_practice
+    citations: []
+    explain: The other side keeps injunctions for itself but limits the author to money damages, even for wrongful depiction or missing credit.
+    recommend: Make remedies mutual, and keep the author's right to seek an injunction against defamatory or unapproved depiction and against omission of credit.
+
+  - id: AP-07
+    title: The other side may assign the rights to anyone without notice
+    applies_to: [any]
+    type: flag
+    detect: ['assign .{0,80}without (?:any )?notice', 'right to assign any and all rights', 'may assign .{0,60}(?:sole|absolute) discretion']
+    severity: YELLOW
+    escalate: false
+    basis: best_practice
+    citations: []
+    explain: The author's rights end up with a company she has never dealt with, which may not honour credit, approval or payment terms.
+    recommend: Allow assignment only with the author's written consent (or to a financier/distributor), with the assignee bound by every author-protection clause and the original party remaining liable for payments.
+
+  - id: AP-08
+    title: The author's agent is paid by, or warrants to, the other side
+    applies_to: [any]
+    type: flag
+    detect: ['payable to the agency', 'remuneration to the agency', 'agency (?:hereby )?represents', 'agency .{0,40}shall (?:not )?be paid by the (?:producer|publisher)']
+    severity: YELLOW
+    escalate: true
+    basis: best_practice
+    citations: []
+    explain: An agent paid directly by the producer, and giving warranties to the producer, has a conflict of interest with the author it represents.
+    recommend: All money flows to the author (or a client account); the agent's commission is a disclosed percentage of what the author receives, under a separate written agency agreement. The agent is not a party who gives warranties to the producer.
+
+  - id: AP-09
+    title: No success bonus or profit share if the film succeeds
+    applies_to: [film_option, film_assignment, life_rights]
+    type: missing
+    require_any: ['bonus', 'profit', 'box[- ]?office', 'gross (?:receipts|collections|revenue)', 'escalat', 'revenue share', 'share of (?:the )?(?:revenue|receipts)']
+    severity: YELLOW
+    escalate: false
+    basis: best_practice
+    citations: []
+    explain: With a one-time fee only, the author gains nothing if the film is a hit, while the producer keeps all theatrical, OTT, satellite, remake and sequel income.
+    recommend: Add box-office bonus slabs (on audited worldwide gross), a percentage of the producer's gross receipts from OTT/satellite/remake sales, and the statutory royalty share for non-theatrical use.
+
+  - id: AP-10
+    title: Author must promote the film or book without a fee
+    applies_to: [any]
+    type: flag
+    detect: ['available for (?:the )?(?:publicity|promotion)', 'make herself available', 'make himself available', 'promotion .{0,60}at the (?:producer|publisher)''?s expense']
+    severity: YELLOW
+    escalate: false
+    basis: best_practice
+    citations: []
+    explain: Promotional appearances are work. "At the producer's expense" covers travel, not a fee.
+    recommend: Add an appearance fee per event or day, travel and stay at the producer's cost, a cap on days, and joint promotion of the book (tie-in edition, book shown in campaigns).
+
+  - id: AP-11
+    title: Author barred from telling her own story, or gagged, in perpetuity
+    applies_to: [life_rights, film_assignment, film_option]
+    type: flag
+    detect: ['shall not participate in any audio[- ]?visual', 'not in perpetuity,? engage', 'shall not,? in perpetuity', 'podcast', 'documentary', 'survive this agreement in perpetuity', 'shall not .{0,60}(?:disclose|post|publish) .{0,80}(?:film|script)']
+    severity: YELLOW
+    escalate: true
+    basis: statutory
+    citations: [{statute: contract_act_1872, section: "27"}]
+    explain: Exclusivity over the rights actually sold is normal. A perpetual ban on the author speaking, writing, podcasting or making documentaries about her own life goes much further and may be an unenforceable restraint (s.27).
+    recommend: Limit exclusivity to the specific film and to a fixed period after release; keep the author's right to write books (including sequels), give interviews and post about her own life.
+
+  - id: AP-12
+    title: Life-story definition includes future events (captures the sequel)
+    applies_to: [life_rights, film_assignment, film_option]
+    type: flag
+    detect: ['(?:surrounding|following) the date of this agreement', 'till the release of the film', 'hereafter (?:occur|arise)', 'future (?:events|experiences)', 'whether preceding,? surrounding or following']
+    severity: YELLOW
+    escalate: true
+    basis: best_practice
+    citations: []
+    explain: If the life story includes events after signing, the producer may claim the sequel story too, without paying for it.
+    recommend: Define the licensed story as the events in the named book only (attach a schedule). Everything after the book, including any sequel, stays with the author.
+
+  - id: AP-13
+    title: Credit placement at the other side's sole discretion, with no remedy if omitted
+    applies_to: [film_option, film_assignment, life_rights, screenwriter]
+    type: flag
+    detect: ['credit .{0,60}sole discretion', 'not be (?:responsible|liable) for (?:the )?failure .{0,60}credit', 'inadvertent failure to accord']
+    severity: YELLOW
+    escalate: false
+    basis: statutory
+    citations: [{statute: copyright_act_1957, section: "57"}]
+    explain: The author's right to be identified as the source (s.57) needs a fixed credit wording and placement, and a remedy if it is left out.
+    recommend: Fix the credit (main titles, posters, trailers, OTT listing, end credits), require cure on all future copies within 30 days of notice, and add a fee for each omission.
+
+  - id: AP-14
+    title: Remaindering or disposal of stock without royalty and without consent
+    applies_to: [publishing]
+    type: flag
+    detect: ['remainder', 'dispose of (?:all|any) .{0,40}(?:stock|copies)', 'no royalty shall be (?:paid|payable)']
+    severity: YELLOW
+    escalate: false
+    basis: best_practice
+    citations: []
+    explain: Copies sold cheaply or given away earn the author nothing, and remaindering can start early.
+    recommend: Require the author's consent before remaindering, a minimum royalty on remainder sales, and first right to buy stock at cost.

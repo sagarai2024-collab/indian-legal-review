@@ -1,0 +1,214 @@
+# LITERARY AND LIFE-STORY RIGHTS LICENCE AGREEMENT
+
+This Agreement is made at {{ v('meta.place_of_execution') }} on {{ v('meta.date') }}
+
+**BETWEEN**
+
+**{{ v('author.name') }}**, residing at {{ v('author.address') }} (the **"Author"**, which expression includes her heirs, executors and legal representatives), of the First Part;
+
+**AND**
+
+**{{ v('producer.name') }}**, a {{ v('producer.entity_type') }} having its registered office at {{ v('producer.registered_office') }}, registration number {{ v('producer.registration_no') }}, acting through {{ v('producer.signatory_name') }}, {{ v('producer.signatory_designation') }}, duly authorised by the resolution in Schedule F (the **"Producer"**), of the Second Part.
+
+**WHEREAS**
+
+A. The Author is the author and sole owner of the copyright in the book "{{ v('book.title') }}" (the **"Book"**){% if opt('author.is_subject_of_story') %}, which tells the story of her own life{% endif %}.{% if opt('book.previous_film') %} An earlier film, "{{ opt('book.previous_film') }}", was based on the Author's earlier book; this Agreement does not concern that film and gives the Producer no right in it.{% endif %}
+
+
+B. The Producer wishes to make one {{ v('picture.format') }} based on the Book. The Author is willing to grant a **limited licence** for that purpose only, while keeping copyright in the Book, control over how her life and the people in it are shown, and a fair share in the success of the Picture.
+
+**NOW IT IS AGREED as follows:**
+
+## 1. Definitions
+
+1.1 **"Licensed Story"** means only the events, people and material as written in the Book and listed in Schedule A. It does not include any event, person or material not in the Book, anything in any other book of the Author, or anything that happens after the date of this Agreement.
+
+1.2 **"Picture"** means one {{ v('picture.format') }}, working title "{{ v('picture.working_title') }}", in {{ v('picture.original_language') }}{% if opt('picture.dubbed_versions_allowed') %}, and its dubbed and subtitled versions{% endif %}, based on the Approved Screenplay.
+
+1.3 **"Approved Screenplay"** means the final screenplay approved in writing by the Author under clause 5.
+
+1.4 **"Gross Receipts"** means all amounts received or credited to the Producer or any affiliate, assignee or licensee from any exploitation of the Picture anywhere, in any medium, before any deduction except goods and services tax.
+
+1.5 **"Worldwide Gross Box Office"** means the gross collections of the Picture at all cinemas worldwide, as shown in distributors' and exhibitors' statements.
+
+1.6 **"Reserved Rights"** has the meaning given in clause 3.
+
+## 2. Licence, not assignment
+
+2.1 The Author grants the Producer an exclusive **licence** to adapt the Licensed Story into a screenplay and to produce **one Picture** from the Approved Screenplay. This Agreement is a licence under sections 18, 19 and 30 of the Copyright Act, 1957. **Copyright in the Book remains with the Author.**
+
+2.2 **No rights before payment.** The licence takes effect only when the Author has received the full Licence Fee under clause 7.1. Until then the Producer may develop the screenplay at its own risk but may not start principal photography.
+
+2.3 **Production window.** If principal photography does not start within **{{ v('licence.start_photography_within_months') }} months**, or the Picture is not released within **{{ v('licence.release_within_months') }} months**, of the date of this Agreement, the licence ends automatically, all rights revert to the Author, and she keeps all sums paid.
+
+2.4 **After release.** Once the Picture is released, the right to make any further adaptation of the Licensed Story reverts to the Author automatically. The Producer may continue to distribute and exploit the completed Picture only (and its dubbed versions) for **{{ v('licence.exploitation_years_after_release') }} years** from release. Any extension requires a separate written agreement and a further fee of ₹ {{ v('licence.exploitation_renewal_fee') }}. The Producer acknowledges that its ownership of the Picture as a cinematograph film gives it no right in the Book or the Licensed Story beyond this clause.
+
+2.5 The licence is for the territory of the world and for the media listed in Schedule B only.
+
+## 3. Rights reserved to the Author
+
+3.1 Every right not expressly licensed in clause 2 is reserved to the Author, including: sequels, prequels, remakes, spin-offs, series and every other film or audio-visual work based on the Book or her life; all rights in her other books, including any sequel book; print, e-book, audio, translation and stage rights; podcasts, documentaries, interviews and talks about her own life; merchandising; and use of the Book, her name, likeness or voice to train, test or prompt any artificial-intelligence system.
+
+3.2 The Author remains free at all times to write, publish, speak and post about her own life and experiences, including the events shown in the Picture.
+
+3.3 If the Producer wishes to make a sequel, remake or series, it must negotiate a separate agreement with the Author. The Author has no obligation to agree.
+
+## 4. Faithful adaptation and protection of real people
+
+4.1 The screenplay and the Picture shall follow the Book faithfully. The Producer, the director and every writer shall not include or make any of the following without the Author's prior written approval, which she may give or refuse in her **sole discretion**:
+{% for item in opt('approvals.sole_discretion_items') %}
+- ({{ loop.index }}) {{ item }};
+{% endfor %}
+
+4.2 The Producer shall obtain, at its own cost, written releases from other identifiable real people shown in the Picture, or change their names and identifying details as approved by the Author.
+{% if opt('children_or_minors_depicted') %}
+4.3 **Children.** No child, and no person who was a child at the time of the events, shall be shown in a way that identifies them without (a) the Author's written approval and (b) the written consent of that person if now an adult, or of their lawful guardian if still a minor. The Producer shall comply with every law protecting the identity of children, including section 74 of the Juvenile Justice (Care and Protection of Children) Act, 2015 and section 23 of the Protection of Children from Sexual Offences Act, 2012, where they apply.
+{% endif %}
+4.4 The Picture shall carry an opening disclaimer in wording approved by the Author.
+
+4.5 The Producer bears all legal risk, and shall obtain a pre-release legal review at its own cost, for any defamation, privacy or other claim arising from anything in the Picture or its marketing that is not in the Book.
+
+## 5. Author's approvals and consultation
+
+5.1 In addition to clause 4, the following require the Author's prior written approval, which she shall not unreasonably withhold:
+{% for item in opt('approvals.other_items_not_unreasonably_withheld') %}
+- {{ item }};
+{% endfor %}
+
+5.2 The Author shall respond within **{{ v('approvals.approval_days') }} working days** of receiving material in writing. Silence is not approval. Items under clause 5.1 (but never items under clause 4.1) are deemed approved only if she does not respond within 5 further working days of a second written reminder sent to {{ v('author.email') }}.
+{% if opt('approvals.cut_viewing') %}
+5.3 The Producer shall show the Author the rough cut and the final cut before the Picture is locked, and shall make the changes needed to comply with clauses 4 and 5.
+{% endif %}
+5.4 If the Picture or its marketing breaches clause 4 or 5, the Author may, in addition to any other remedy, require that her name, the Book's title and the credit be removed, and may seek an injunction.
+
+## 6. The Director
+
+6.1 The Producer shall ensure that the director{% if opt('director.name') %}, {{ opt('director.name') }},{% endif %} and every writer engaged on the Picture are bound in writing by clauses 4 and 5{% if opt('director.include_undertaking') %}, and that the director signs the Undertaking in Schedule E before starting work{% endif %}. The Producer is responsible for any breach by them.
+
+## 7. Payment
+
+7.1 **Licence Fee.** ₹ {{ v('money.licence_fee') }} plus applicable GST, of which {{ v('money.fee_on_signing_percent') }}% is payable on signing and the balance before the start of principal photography.
+{% if opt('money.statutory_royalty_acknowledged') %}
+7.2 **Statutory royalty.** The Producer acknowledges the Author's right under section 18(1) and section 19(9) of the Copyright Act, 1957 to an equal share of royalties and consideration payable for any use of the Book in the Picture other than its exhibition in cinema halls. **Nothing in this Agreement assigns or waives that right.** The Producer shall account for and pay it with every statement under clause 7.6.
+{% endif %}
+7.3 **Share of non-theatrical income.** Without limiting clause 7.2, the Producer shall pay the Author **{{ v('money.non_theatrical_gross_percent') }}%** of all Gross Receipts from satellite, television, OTT and streaming, music, in-flight, home video and every other non-theatrical exploitation of the Picture and its dubbed versions, for as long as the Picture is exploited.
+
+7.4 **Box-office success bonuses.** The Producer shall pay the Author the following bonuses within 30 days of the Worldwide Gross Box Office first reaching each level:
+{% for b in opt('money.box_office_bonuses') %}
+- ₹ {{ b.gross_crore }} crore: bonus of ₹ {{ blank_if_none(b.bonus) }}
+{% endfor %}
+
+{% if opt('money.net_profit_percent') %}
+7.5 **Profit share.** In addition, {{ opt('money.net_profit_percent') }}% of the Producer's net profits from the Picture, as defined in Schedule C.
+{% else %}
+7.5 **Profit share.** Not agreed at present. Clauses 7.2 to 7.4 apply in any case.
+{% endif %}
+
+7.6 **Statements and audit.** The Producer shall send statements {{ v('money.statements') }}, showing Worldwide Gross Box Office and all Gross Receipts by source and territory, with copies of distributor statements, and pay all sums due with each statement. The Author or her chartered accountant may inspect the Producer's records relating to the Picture once a year. If an under-payment of more than 5% is found, the Producer pays it with interest and the cost of the inspection. The Producer shall include equivalent reporting duties in every distribution and licensing agreement for the Picture.
+
+7.7 **Payment terms.** All payments go directly to the Author's bank account notified in writing by her, never to an agent or third party. Late payments carry interest at {{ v('money.late_payment_interest_percent') }}% per year. Taxes are deducted only as required by law, with certificates issued on time. No sum due to the Author may be set off against any claim under any other agreement.
+
+## 8. Credit
+
+8.1 The Picture shall carry the credit **"{{ v('credit.text') }}"** on a separate card in the opening main titles, and in the end credits, on all posters and billing blocks where the screenplay writer is credited, in trailers, in press releases, and in the title listing and description on every OTT and streaming platform. The credit shall be no less prominent than the screenplay writer's credit.
+
+8.2 If the credit is omitted or altered, the Producer shall correct it on all future copies and listings within 30 days of notice and pay ₹ {{ v('credit.omission_fee') }} for each uncorrected omission. The Author's right to be identified as the author of the Book, and to object to distortion of it, under section 57 of the Copyright Act, 1957 is not waived.
+
+## 9. The Author's presence in the Picture and its promotion
+{% if opt('appearance.author_photos_in_picture') %}
+9.1 With the Author's approval of the selection, the Picture shall include real photographs or footage of the Author and her story in the end credits or a closing sequence, with her name.
+{% endif %}{% if opt('appearance.cameo_offer') %}
+9.2 The Producer shall offer the Author a cameo appearance in the Picture, which she may accept or decline, on terms to be agreed.
+{% endif %}
+9.3 The Author shall take part in the promotion of the Picture for up to {{ v('appearance.promo_days_included') }} days in total, at dates agreed with her, for a fee of ₹ {{ v('appearance.appearance_fee_per_day') }} per day, with {{ v('appearance.travel') }}. Further days, shows and events are at her option, on the same terms.
+{% if opt('appearance.book_copromotion') %}
+9.4 The Producer shall promote the Book together with the Picture: the Book's cover and title shall appear in the Picture's press kit, launch events and digital campaigns, and the Producer shall co-operate with the Book's publisher on a tie-in edition. The Author may use the Picture's title, poster and approved stills free of charge to promote her books.
+{% endif %}
+9.5 The Producer may use the Author's name, likeness and approved biography only to promote the Picture during the exploitation period in clause 2.4, and never to endorse any product or service without her separate written agreement.
+
+## 10. Confidentiality
+
+10.1 Each party shall keep the unreleased screenplay and the financial terms of this Agreement confidential until the Picture is released, except with its advisers or as required by law. Nothing restricts the Author from speaking or writing about her own life, her books, or the fact that the Picture is being made.
+
+## 11. Warranties and indemnities
+
+11.1 The Author warrants that she owns the copyright in the Book and has not granted the rights licensed here to anyone else.
+
+11.2 The Producer warrants that it has the authority and the financing to make the Picture, and that the Picture will comply with all laws, including certification under the Cinematograph Act, 1952.
+
+11.3 The Author's liability is limited to loss caused by breach of clause 11.1 and shall not exceed the Licence Fee actually received. The Producer indemnifies the Author against every claim, cost and loss arising from the Picture, its marketing, anything not in the Book, or any breach of this Agreement by the Producer, the director or any writer.
+
+## 12. Assignment
+
+12.1 The Producer may not assign or transfer this Agreement or any right under it without the Author's prior written consent, except that it may license distribution of the completed Picture in the ordinary course, provided every licensee is bound by clauses 4, 7.6, 8 and 9.5 and the Producer remains liable for all payments to the Author.
+
+## 13. Agent
+{% if opt('agent.exists') %}
+13.1 The Author is represented by {{ v('agent.name') }}. The agent is not a party to this Agreement, gives no warranty under it, and receives no payment from the Producer. Any commission is a matter between the Author and her agent.
+{% else %}
+13.1 No agent, broker or intermediary is a party to this Agreement or is entitled to any payment from the Producer in connection with it.
+{% endif %}
+
+## 14. Termination and reversion
+
+14.1 The Author may terminate this Agreement by written notice if the Producer (a) fails to pay any sum within 30 days of written notice, (b) breaches clause 4, 5 or 8 and does not cure within 30 days of written notice, or (c) becomes insolvent or is wound up.
+
+14.2 On termination or expiry, all rights revert to the Author immediately without any payment by her, and she keeps all sums paid. Termination does not affect sums already due to her, or her rights under clauses 7.2 to 7.6 on any exploitation that has already happened.
+
+## 15. Disputes and remedies
+
+15.1 The parties shall first try to resolve any dispute by good-faith discussion for 30 days. Any unresolved dispute shall be referred to a sole arbitrator appointed by mutual agreement under the Arbitration and Conciliation Act, 1996, seated at **{{ v('dispute.seat') }}**, in English.
+
+15.2 **Both parties** may seek interim relief, including an injunction, from a competent court, including the court where the Author resides under section 62 of the Copyright Act, 1957. Nothing in this Agreement limits the Author's remedies to money damages.
+
+## 16. General
+
+16.1 This Agreement is governed by the laws of India.
+
+16.2 Stamp duty on this Agreement shall be borne by the Producer.
+
+16.3 This Agreement is the entire agreement between the parties on its subject. Any amendment or waiver must be in writing and signed by both parties.
+
+16.4 Notices shall be sent by registered post and by e-mail to the addresses above.
+
+16.5 Every page shall be initialled by both parties. No blank space may remain at signing.
+
+16.6 Clauses 3, 4.5, 7, 8, 9.5, 10, 11, 14.2 and 15 survive termination or expiry.
+
+**IN WITNESS WHEREOF** the parties have signed this Agreement on the date and at the place first written above.
+
+Signed by the Author: ____________________ Name: {{ v('author.name') }}
+
+Signed for the Producer: ____________________ Name: {{ v('producer.signatory_name') }}, {{ v('producer.signatory_designation') }}
+
+Witness 1: ____________________ Name and address: ____________________
+
+Witness 2: ____________________ Name and address: ____________________
+
+## Schedule A — Licensed Story
+
+Book: "{{ v('book.title') }}"{% if opt('book.publisher') %}, published by {{ opt('book.publisher') }}{% endif %}.
+
+[List the chapters, or attach the table of contents of the final manuscript. Only the events in this list are licensed.]
+
+## Schedule B — Media
+
+Theatrical exhibition; satellite and terrestrial television; OTT, streaming and video-on-demand; home video; in-flight and non-theatrical exhibition — in each case for the completed Picture and its dubbed and subtitled versions only, and only for the period in clause 2.4.
+
+## Schedule C — Net profits definition
+
+[If clause 7.5 applies: attach an agreed definition with capped distribution fees and overheads, and no cross-collateralisation with other films.]
+
+## Schedule D — Promotion plan
+
+[Dates, cities and events agreed with the Author.]
+{% if opt('director.include_undertaking') %}
+## Schedule E — Director's Undertaking
+
+I, {{ v('director.name') }}, engaged by the Producer to direct the Picture, confirm that I have read clauses 4 and 5 of this Agreement. I undertake to the Author that I will follow the Approved Screenplay and the Book faithfully, and will not add any fictional or composite character, invent or exaggerate any event, change how any real person is shown, or show any child, without the Author's prior written approval.
+
+Signed: ____________________ Date: ____________________
+{% endif %}
+## Schedule F — Authority of signatory
+
+[Attach the Producer's board or partners' resolution authorising the signatory.]

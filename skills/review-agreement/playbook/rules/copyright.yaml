@@ -106,7 +106,7 @@ rules:
     title: Author waives or assigns film royalties beyond cinema-hall exhibition
     applies_to: [film_option, film_assignment, screenwriter]
     type: flag
-    detect: ['waive[sd]?\b.{0,80}royalt', 'royalt.{0,80}waive', 'no (?:further )?royalt', 'not be entitled to (?:any )?(?:further )?(?:royalt|share)', 'one[- ]time (?:payment|fee|consideration).{0,120}(?:all|full and final)', 'full and final consideration', 'buy[- ]?out']
+    detect: ['waive[sd]?\b.{0,80}royalt', 'royalt.{0,80}waive', 'no (?:further )?royalt', 'not be entitled to (?:any )?(?:further )?(?:royalt|share)', 'one[- ]time (?:payment|fee|consideration).{0,120}(?:all|full and final)', 'full and final consideration', 'buy[- ]?out', 'not be liable to make any payment beyond', 'no further (?:payment|remuneration)', 'sufficient and adequate (?:consideration|for)']
     severity: RED
     escalate: true
     basis: statutory
@@ -142,7 +142,7 @@ rules:
     title: Assignment of future or unwritten works (sequels, all future works)
     applies_to: [publishing, film_option, film_assignment, screenwriter]
     type: flag
-    detect: ['future works?', 'all (?:subsequent|future) (?:books|works|writings)', 'any work (?:hereafter|subsequently) (?:written|created)', 'first (?:refusal|look|negotiation).{0,60}(?:next|future|subsequent)']
+    detect: ['future works?', 'all (?:subsequent|future) (?:books|works|writings)', 'any work (?:hereafter|subsequently) (?:written|created)', 'first (?:refusal|look|negotiation).{0,60}(?:next|future|subsequent)', 'first (?:right|option) to (?:publish|acquire|read).{0,40}(?:next|future|subsequent)']
     severity: YELLOW
     escalate: false
     basis: statutory

@@ -89,6 +89,15 @@ Executed at Mumbai; the agreement does not record stamp duty paid.
 **Suggested change:** Check the Maharashtra stamp schedule before signing.  
 **Confidence:** medium
 
+### 8. 🟡 YELLOW — No right for the author to audit accounts (AP-02)
+**Clause:** missing from the document
+
+The agreement gives the Author no right to inspect the Producer's accounts, so any royalty or revenue share depends entirely on the Producer's own figures.
+
+**Law:** best practice (no statute)  
+**Suggested change:** Add a yearly audit right through a chartered accountant, with the Producer paying the cost if under-payment exceeds 5%.  
+**Confidence:** high
+
 ## Checked, no issue found
 
 - CR-02 — Work not clearly identified: Work identified by title and ISBN in C2.

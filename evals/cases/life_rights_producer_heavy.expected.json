@@ -1,0 +1,3 @@
+{"doc_types": ["life_rights"], "expected_overall": ["RED"], "expect_escalate": true, "injection": false,
+ "must_flag": ["CR-09", "CR-10", "CR-15", "LR-05", "GC-02", "AP-02", "AP-05", "AP-06", "AP-07", "AP-08", "AP-09", "AP-10", "AP-11", "AP-12", "AP-13"],
+ "must_not_flag": ["CR-05", "CR-06", "LR-03"]}

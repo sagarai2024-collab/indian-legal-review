@@ -126,6 +126,16 @@
       ],
       "recommendation": "Check the Maharashtra stamp schedule before signing.",
       "confidence": "medium"
+    },
+    {
+      "rule_id": "AP-02",
+      "clause_ref": null,
+      "quote": null,
+      "severity": "YELLOW",
+      "issue": "The agreement gives the Author no right to inspect the Producer's accounts, so any royalty or revenue share depends entirely on the Producer's own figures.",
+      "citations": [],
+      "recommendation": "Add a yearly audit right through a chartered accountant, with the Producer paying the cost if under-payment exceeds 5%.",
+      "confidence": "high"
     }
   ],
   "dismissed_candidates": [

@@ -1,0 +1,74 @@
+# Term sheet: author–publisher agreement (licence, author keeps copyright).
+# Fill every `null` you can. Anything left null prints as a blank "__________"
+# in the draft and is listed in notes.md as "to be agreed".
+# Percentages below are the AUTHOR'S OPENING POSITION, not market benchmarks.
+type: publishing
+
+meta:
+  place_of_execution: null        # city where signed (decides stamp duty)
+  date: null                      # leave null until signing; never backdate
+
+author:
+  name: null
+  address: null
+  email: null
+
+publisher:
+  name: null
+  entity_type: null               # e.g. private limited company
+  registered_office: null
+  cin: null                       # verify on the MCA portal before signing
+  signatory_name: null
+  signatory_designation: null
+
+work:
+  title: null                     # tentative title of the book
+  description: null               # e.g. "memoir; sequel to <earlier book>"
+  previous_book: null             # earlier book this follows, if any
+  approx_words: null
+  delivery_date: null             # date the author delivers the final manuscript
+
+grant:
+  formats: [print_paperback, print_hardcover, ebook]   # add audiobook only if agreed
+  languages: [English]
+  territory: worldwide            # or "India" or a list
+  term_years: 5                   # licence period from first publication
+  publish_within_months: 9        # from acceptance of the final manuscript
+
+approvals:
+  approval_days: 10               # working days the author has to approve; no deemed approval before a reminder
+
+money:
+  advance: null                   # ₹ amount
+  advance_schedule: "50% on signing and 50% on first publication"
+  print_royalty_slabs:            # % of MRP, per edition, cumulative copies sold
+    - {up_to_copies: 5000, percent: 10}
+    - {up_to_copies: 10000, percent: 12.5}
+    - {above_copies: 10000, percent: 15}
+  ebook_percent_of_net: 35
+  audiobook_percent_of_net: 25
+  special_sales_percent_of_net: 15   # bulk, institutional, deep-discount sales
+  remainder_percent_of_net: 10
+  max_free_copies_per_edition: 50
+  reserve_against_returns_percent: 10
+  late_payment_interest_percent: 12
+  sublicence_author_share_percent: 75   # only for rights the author separately consents to
+
+statements: half_yearly           # half_yearly | quarterly (floor: not annual)
+
+promotion:
+  author_copies: 25
+  author_discount_percent: 40
+  appearance_fee_per_event: null
+  events_included_per_year: 4
+  travel: "air or AC-train travel, hotel stay and daily allowance at the Publisher's cost"
+  film_tie_in_edition: true
+
+legal_vetting_by_publisher: true  # publisher pays for pre-publication defamation/privacy read
+indemnity_cap: "the total amounts received by the Author under this Agreement"
+next_work_option: none            # none | first_look_30_days
+
+dispute:
+  seat: null                      # author's city, e.g. Bengaluru
+
+floor_overrides: []               # see SKILL.md; each needs reason + acknowledged_by_author: true

@@ -17,7 +17,7 @@ rules:
     title: Clause limiting the right to go to court or shortening the time to sue
     applies_to: [any]
     type: flag
-    detect: ['shall not (?:approach|move|file|initiate).{0,40}(?:court|legal proceedings)', 'within \w+ (?:days|months) .{0,60}(?:barred|waived|forfeited)', 'claims? shall be (?:barred|extinguished)', 'right to (?:sue|claim) shall (?:lapse|cease)']
+    detect: ['shall not (?:approach|move|file|initiate).{0,40}(?:court|legal proceedings)', 'within \w+ (?:days|months) .{0,60}(?:barred|waived|forfeited)', 'claims? shall be (?:barred|extinguished)', 'right to (?:sue|claim) shall (?:lapse|cease)', 'not seek .{0,40}to challenge', 'challenge,? through the courts']
     severity: RED
     escalate: true
     basis: statutory

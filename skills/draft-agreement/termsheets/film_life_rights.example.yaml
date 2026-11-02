@@ -1,0 +1,98 @@
+# Term sheet: author → producer licence of literary rights and life-story rights
+# for ONE film or series based on the author's book. The author keeps copyright
+# in the book, keeps all sequel/remake/series rights, and gets the underlying
+# rights back after the film.
+# Anything left null prints as "__________" and is listed in notes.md.
+# Percentages and periods are the AUTHOR'S OPENING POSITION, not market benchmarks.
+type: film_life_rights
+
+meta:
+  place_of_execution: null
+  date: null                      # never backdate
+
+author:
+  name: null
+  address: null
+  email: null
+  is_subject_of_story: true       # the author is also the real person depicted
+
+producer:
+  name: null
+  entity_type: null               # LLP / private limited company
+  registered_office: null
+  registration_no: null           # LLPIN or CIN — verify on the MCA portal
+  signatory_name: null
+  signatory_designation: null
+
+director:
+  name: null                      # if known; signs the Director's Undertaking (Schedule E)
+  include_undertaking: true
+
+book:
+  title: null                     # the book being adapted (e.g. the sequel)
+  publisher: null
+  published: false
+  previous_film: null             # earlier film based on the author's earlier book, if any
+
+picture:
+  working_title: null
+  format: feature film            # feature film | web series (one season)
+  original_language: Hindi
+  dubbed_versions_allowed: true
+
+licence:
+  start_photography_within_months: 18
+  release_within_months: 36
+  exploitation_years_after_release: 10    # producer may exploit the completed picture for this long
+  exploitation_renewal_fee: null          # fee to extend, if producer asks
+
+approvals:
+  approval_days: 10
+  # Items needing the Author's approval in her sole discretion (floor: keep all five)
+  sole_discretion_items:
+    - new fictional or composite characters
+    - invented events or scenes not in the Book
+    - exaggeration or dramatisation that changes the meaning of real events
+    - any change to how real, identifiable people are shown
+    - any depiction of children
+  other_items_not_unreasonably_withheld:
+    - treatment and each draft of the screenplay
+    - title of the Picture
+    - casting of the character based on the Author
+    - trailers, posters and synopses describing the Author's life
+  cut_viewing: true
+
+money:
+  licence_fee: null
+  fee_on_signing_percent: 50      # balance before principal photography; rights vest only on full payment
+  statutory_royalty_acknowledged: true   # Copyright Act s.18 / s.19(9) — cannot be waived
+  non_theatrical_gross_percent: 5        # % of Producer's gross receipts from OTT, satellite, TV, music etc.
+  box_office_bonuses:                    # on audited worldwide gross box-office collections
+    - {gross_crore: 50, bonus: null}
+    - {gross_crore: 100, bonus: null}
+    - {gross_crore: 200, bonus: null}
+  net_profit_percent: null        # optional additional share of net profits
+  late_payment_interest_percent: 12
+  statements: "quarterly for three years after release, then half-yearly"
+
+credit:
+  text: null                      # e.g. "Based on the book <title> by <author>"
+  omission_fee: null              # ₹ per omission not cured within 30 days
+
+appearance:
+  author_photos_in_picture: true  # real photographs/footage of the Author in end credits, with her approval
+  cameo_offer: true
+  promo_days_included: 10
+  appearance_fee_per_day: null
+  travel: "business-class air travel, hotel stay and daily allowance at the Producer's cost"
+  book_copromotion: true
+
+children_or_minors_depicted: true # if the story involves children (even if now adults), keep true
+agent:
+  exists: false
+  name: null                      # agent is never a party; commission is a matter between author and agent
+
+dispute:
+  seat: null                      # author's city, e.g. Bengaluru
+
+floor_overrides: []

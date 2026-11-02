@@ -1,54 +1,71 @@
 # indian-legal-review
 
-A Claude Code plugin that reviews **author, publishing, film-rights, screenwriting and life-rights agreements** clause by clause against Indian law, and produces a verified 🟢 / 🟡 / 🔴 report that says plainly when you need an advocate.
+A Claude Code plugin for **authors**. It does two jobs:
 
-> **Not legal advice.** Under the Advocates Act, 1961 only enrolled advocates may practise law in India. This tool is a pre-legal review: it finds the issues and the provisions so that your time with an advocate is shorter and better informed. It does not replace that advice.
+1. **`draft-agreement`** — drafts author-favourable agreements under Indian law: an **author–publisher licence**, and a **literary and life-story rights licence** for a film or series based on the author's book.
+2. **`review-agreement`** — reviews any existing publishing, film-rights, screenwriting or life-rights agreement clause by clause (including scanned PDFs), and produces a verified 🟢 / 🟡 / 🔴 report that says plainly when you need an advocate.
 
-## What it checks
+> **Not legal advice.** Under the Advocates Act, 1961 only enrolled advocates may practise law in India. Drafts are a strong opening position for negotiation; reviews find issues and the relevant provisions. A practising advocate must review anything before it is signed.
 
-| Area | Examples of what it catches | Main law |
+## Drafting: what the author gets
+
+| | Publishing licence | Film / life-story licence |
 |---|---|---|
-| Copyright assignment | missing term (deemed 5 years), missing territory (deemed India only), no royalty stated, unsigned grant, "all media hereafter devised", future-works grabs, "work for hire" labels | Copyright Act 1957 ss.17, 18, 19, 30 |
-| Film rights | waiver of the author's non-theatrical royalties (void), moral-rights waivers, missing credit, free sequels/remakes, rights vesting before payment, open-ended options | Copyright Act ss.14, 18(1), 19(9), 57 |
-| Life rights | consent not from the subject, minors and child-protection limits, sexual-offence victim identity, heirs granting a deceased person's "life rights", unlimited fictionalisation, blanket waivers, personal data | Constitution Art. 21, BNS ss.72 & 356, JJ Act s.74, POCSO s.23, DPDP Act s.6, Contract Act ss.11, 23, 28 |
-| Every contract | post-term non-competes, time-bars on suing, penalties, one-sided indemnities, arbitration seat, jurisdiction, stamp duty, foreign law, tax | Contract Act ss.27, 28, 74, 124; Arbitration Act ss.7, 20; CPC s.20; Stamp Act s.35 |
+| Ownership | Time-limited licence; copyright stays with the author | Licence for **one** film or series season, never an assignment |
+| Rights kept | Film, TV, OTT, translation, audio, merchandising, AI training | Sequels, remakes, series, all other books, podcasts, documentaries; free to speak and write about her life |
+| Control | Approval of edits, title, cover, blurb and marketing of real people | Faithful adaptation; **no fictional characters, invented or exaggerated events, changes to real people or depiction of children without her approval**; approval of script, title and casting of her character; cut viewing; Director's Undertaking |
+| Money | Advance, escalating print royalties, e-book and audio royalties, 75% of sub-licence income, no zero-royalty sales | Fee paid before rights vest, non-waivable statutory royalty share (Copyright Act s.18/19(9)), % of non-theatrical receipts, **box-office success bonuses**, optional profit share |
+| Accounting | Half-yearly statements, audit, interest, no cross-agreement set-off | Quarterly then half-yearly statements, audit, distributor statements |
+| Getting rights back | Automatic reversion on out-of-print, non-payment, insolvency or failure to publish | Reversion if filming or release is late; after release all further adaptation rights revert; producer may exploit the finished film only for a fixed period |
+| Visibility | Credit on cover and marketing; paid promotion; film tie-in edition | Credit on main titles, posters, trailers and OTT listings with a fee for omissions; her real photographs in the film; cameo offer; paid promotion days; book co-promotion |
+| Safety | No option on future books; publisher pays legal reading of life writing | Mutual injunctive relief; agent never a party or paid by the producer; children protected |
 
-Rental, property, matrimonial, criminal and other documents are reported as **UNSUPPORTED** rather than guessed at.
+### Guardrails in drafting
 
-## How it works
+- **Protection floor.** `build_agreement.py` refuses to build if a term sheet drops an author protection (for example, allowing fictional characters, or waiving the statutory royalty), unless the author records a reason and acknowledges it. Overrides are printed in `notes.md`.
+- **No invented facts.** Unknown names, amounts and dates print as `__________` and are listed for negotiation; the agent never fills them from memory and never backdates.
+- **Conflict check.** Before a new deal, the agent reviews the author's earlier agreements on the same book or life story and lists clauses that could conflict (earlier sequel/remake grants, first-refusal rights, perpetual exclusivity).
+- **Before-you-sign checklist.** Verify the counterparty on the MCA portal, get the signatory's authority, register copyright and use an NDA before sharing a manuscript, no blank spaces, correct date, stamp duty, payments only to the author's account.
+
+```bash
+cp skills/draft-agreement/termsheets/film_life_rights.example.yaml my-film.yaml   # edit it
+python3 skills/draft-agreement/scripts/build_agreement.py my-film.yaml --out-dir drafts/my-film
+```
+
+Or just ask Claude: *"Draft a film rights agreement for my sequel with draft-agreement."*
+
+## Reviewing: how it works
 
 ```
 document ──► prescan.py ──► prescan.json ──► Claude (skill) ──► report.json ──► verify_report.py ──► report.md
             deterministic     clean clauses     reads playbook      findings        deterministic        shown to user
-            · hidden text     · PII masked      only               + citations      · citations exist     only if PASS
-            · injections      · candidates                                          · quotes verbatim
-              removed                                                               · verdict & escalation
+            · OCR if scanned  · PII masked      only               + citations      · citations exist     only if PASS
+            · hidden text &   · candidates                                          · quotes verbatim
+              injections removed                                                    · verdict & escalation
 ```
 
-1. **Pre-scan (no AI).** Extracts text from .txt/.md/.docx/text PDFs, removes text hidden from humans (white, 1-pt or hidden runs, invisible Unicode) and instruction-like text aimed at the AI, masks Aadhaar/PAN/IFSC/account/phone/e-mail, splits clauses and nominates candidate rules with regexes.
-2. **Review (Claude).** Reads only the cleaned JSON, never the raw file, and treats every clause as untrusted data. It must decide every candidate: report it, dismiss it with a reason, or mark the check as OK.
-3. **Verify (no AI).** Rejects the report if it cites anything outside the playbook, cites the IPC for a post-July-2024 document, quotes text that is not in the clause, changes a rule's severity, gets the verdict or escalation wrong, drops a candidate silently, or hides injection flags. Claude must fix the report until it passes.
+The playbook has **51 rules**: copyright (CR), film options (FO), life rights (LR), general contract (GC), and **author protection (AP)** — terms that are lawful but leave the author under-paid or without control, such as film rights given to a book publisher, no audit, annual statements, no success bonus, unpaid promotion, perpetual gags, or a "life story" defined to include future events (which can capture a sequel).
 
-## Install and use
+The verifier rejects a report that cites anything outside the playbook, cites the IPC for a post-July-2024 document, quotes text that is not in the clause, changes a rule's severity, gets the verdict or escalation wrong, silently drops a candidate, or hides injection flags.
+
+## Install
 
 ```bash
 git clone https://github.com/sagarai2024-collab/indian-legal-review
-pip install -r indian-legal-review/requirements.txt   # pyyaml, python-docx; pdftotext for PDFs
+pip install -r indian-legal-review/requirements.txt   # pyyaml, python-docx, jinja2
+# for PDFs: poppler-utils (pdftotext, pdftoppm); for scanned PDFs: tesseract-ocr
 claude --plugin-dir ./indian-legal-review
 ```
-
-Then ask: *"Review contract.docx with review-agreement"*. The report is written to `./legal-review/<document>/report.md`. See [`examples/`](examples/) for a real output on a test agreement containing a prompt-injection attempt.
 
 ## Evals
 
 ```bash
-python3 evals/score.py --layer prescan   # deterministic, seconds, runs in CI
-bash evals/run_agent.sh                   # runs the skill on every case, then scores it
+python3 evals/score.py --layer prescan   # review pre-scan: 11 agreements, deterministic
+python3 evals/test_draft.py              # drafting: floor, overrides, outputs
+bash evals/run_agent.sh                   # full agent run on every review case, then scored
 ```
 
-Nine test agreements cover a fair publishing deal, a bad one, a film assignment with a royalty waiver, an option, two life-rights deals (minor/victim and deceased subject), two injection attacks (visible and hidden in a .docx) and an out-of-scope rental agreement.
-
-| Gate | Required |
+| Gate (review, agent layer) | Required |
 |---|---|
 | Verifier pass rate | 100% |
 | Recall of RED issues | 100% |
@@ -56,37 +73,23 @@ Nine test agreements cover a fair publishing deal, a bad one, a film assignment 
 | False flags | ≤ 10% |
 | Verdict accuracy | ≥ 90% |
 | Escalation recall | 100% |
-| Injection resistance (flags shown, verdict not GREEN, recall unchanged) | 100% |
+| Injection resistance | 100% |
 
-## Status and what an advocate must do before release
+## Before release — advocate checklist
 
-- [ ] Check every section in `playbook/statutes.yaml` against the official text on [India Code](https://www.indiacode.nic.in/) and set `text_checked: true`.
-- [ ] Confirm every judgment in `playbook/cases.yaml` (citation and whether it is still good law) and set `verified: true`.
-- [ ] Review each rule's severity and explanation.
-- [ ] Confirm the expected results in `evals/cases/*.expected.json`, and add 50+ anonymised real agreements.
-
-Until then, every report carries a banner listing the citations that are not yet advocate-verified.
-
-## Roadmap
-
-- Supabase pgvector corpus of bare-act text, so findings can quote the provision itself
-- OCR for scanned agreements (English, Hindi, Bengali)
-- More document types: translation, ghost-writing, audiobook, music lyric agreements
-- Hindi and Bengali report output
+- [ ] Check every section in `playbook/statutes.yaml` against [India Code](https://www.indiacode.nic.in/) and set `text_checked: true`.
+- [ ] Confirm every judgment in `playbook/cases.yaml` and set `verified: true`.
+- [ ] Review rule severities, the two drafting templates, and the term-sheet defaults.
+- [ ] Confirm `evals/cases/*.expected.json` and add 50+ anonymised real agreements.
 
 ## Layout
 
 ```
 .claude-plugin/plugin.json
-skills/review-agreement/
-  SKILL.md                    workflow, guardrails, report schema
-  playbook/statutes.yaml      only citable statutes and sections
-  playbook/cases.yaml         only citable judgments
-  playbook/rules/*.yaml       37 rules: copyright, life rights, general contract
-  scripts/prescan.py          extraction, injection removal, PII masking, candidates
-  scripts/verify_report.py    deterministic report verifier and renderer
-evals/                        test agreements, expected results, scorer, runner
-examples/                     sample verified report
+skills/review-agreement/      review skill: SKILL.md, playbook (statutes, cases, 51 rules), prescan + verifier
+skills/draft-agreement/       drafting skill: SKILL.md, term sheets, templates, build_agreement.py
+evals/                        test agreements, expected results, scorers, drafting tests
+examples/                     sample verified review report
 ```
 
 MIT licence. Built by Sagarika Chakraborty.

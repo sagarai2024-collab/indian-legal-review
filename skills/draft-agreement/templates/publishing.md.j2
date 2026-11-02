@@ -1,0 +1,195 @@
+# AUTHOR–PUBLISHER LICENCE AGREEMENT
+
+This Agreement is made at {{ v('meta.place_of_execution') }} on {{ v('meta.date') }}
+
+**BETWEEN**
+
+**{{ v('author.name') }}**, residing at {{ v('author.address') }} (the **"Author"**, which expression includes her heirs, executors and legal representatives), of the One Part;
+
+**AND**
+
+**{{ v('publisher.name') }}**, a {{ v('publisher.entity_type') }} having its registered office at {{ v('publisher.registered_office') }}, CIN {{ v('publisher.cin') }}, acting through {{ v('publisher.signatory_name') }}, {{ v('publisher.signatory_designation') }}, duly authorised by a resolution annexed to this Agreement (the **"Publisher"**), of the Other Part.
+
+**WHEREAS**
+
+A. The Author is the author and sole owner of the copyright in the literary work described in Schedule A (the **"Work"**){% if opt('work.previous_book') %}, which follows her earlier book "{{ opt('work.previous_book') }}"{% endif %}.
+
+B. The Publisher wishes to publish the Work, and the Author is willing to grant a limited licence for that purpose only, on the terms below.
+
+**NOW IT IS AGREED as follows:**
+
+## 1. Definitions
+
+1.1 **"MRP"** means the printed maximum retail price of a copy, inclusive of taxes.
+
+1.2 **"Net Receipts"** means all amounts actually received by the Publisher or any affiliate from the sale or licensing of the relevant format, less only trade discounts actually given and returns actually credited. No deduction is allowed for the Publisher's overheads, marketing, distribution fees or sales to affiliates below arm's-length prices.
+
+1.3 **"Granted Formats"** means: {{ formats_text }}, in the {{ languages_text }} language(s), in the territory of {{ v('grant.territory') }}.
+
+1.4 **"Reserved Rights"** has the meaning given in clause 3.
+
+## 2. Licence, not assignment
+
+2.1 The Author grants the Publisher an exclusive **licence** to print, publish and sell the Work in the Granted Formats for a period of **{{ v('grant.term_years') }} years** from the date of first publication (the **"Term"**), in accordance with sections 18, 19 and 30 of the Copyright Act, 1957.
+
+2.2 **Copyright in the Work remains with the Author at all times.** Nothing in this Agreement assigns any copyright to the Publisher.
+
+2.3 The Publisher may not sub-license, assign or otherwise deal with any right in the Work, including in a Granted Format, without the Author's prior written consent. Where the Author consents, the Author shall receive **{{ v('money.sublicence_author_share_percent') }}%** of all sums received by the Publisher, paid within 30 days of receipt.
+
+## 3. Rights reserved to the Author
+
+3.1 All rights not expressly granted in clause 2 are reserved to the Author, including film, television, web-series and OTT rights; dramatic, stage and radio rights; {% if 'audiobook' not in opt('grant.formats') %}audio and audiobook rights; {% endif %}translation rights in all other languages; merchandising, character and personality rights; the right to write and publish sequels and other works about the same life and events; and the right to use the Work, the Author's name or voice to train, test or prompt any artificial-intelligence system.
+
+3.2 The Publisher shall not claim any interest in, share of, option over or right of first refusal on any Reserved Right or on any film or other adaptation of the Work, and shall promptly refer any enquiry about a Reserved Right to the Author.
+
+## 4. Delivery and publication
+
+4.1 The Author shall deliver the complete manuscript by {{ v('work.delivery_date') }}. The Publisher shall confirm acceptance, or give detailed written reasons for any revision it requests, within 30 days of delivery.
+
+4.2 The Publisher shall publish the Work in all Granted Formats within **{{ v('grant.publish_within_months') }} months** of acceptance. If it does not, the Author may terminate this Agreement by written notice, all rights revert to her immediately, and she keeps all sums already paid.
+
+## 5. Author's approvals
+
+5.1 The Publisher shall not do any of the following without the Author's prior written approval: (a) make any editorial change to the text, including any abridgement, addition or deletion; (b) fix or change the title or subtitle; (c) fix the cover design, cover copy, author photograph and blurb; (d) describe real people or events in the Work in any marketing material; (e) publish any new edition or format; (f) reduce the MRP by more than 20% other than in a promotion approved by the Author.
+
+5.2 The Author shall respond within **{{ v('approvals.approval_days') }} working days** of receiving a request in writing. Silence is not approval. Approval is deemed only if the Author does not respond within 5 further working days of a second written reminder sent by e-mail to {{ v('author.email') }}.
+
+5.3 Once the Author approves the final text, no change may be made without her further written approval.
+
+## 6. Advance
+
+6.1 The Publisher shall pay the Author a non-refundable advance of **₹ {{ v('money.advance') }}**, payable {{ v('money.advance_schedule') }}. The advance is recoverable only from royalties earned on this Work. It is refundable only if the Author fails to deliver the manuscript and does not cure within 90 days of written notice.
+
+## 7. Royalties
+
+7.1 **Print editions** — on every copy sold, a royalty on the MRP of:
+{% for s in opt('money.print_royalty_slabs') %}
+- {% if s.up_to_copies is defined %}copies up to {{ s.up_to_copies }}{% else %}copies above {{ s.above_copies }}{% endif %}: **{{ s.percent }}%**
+{% endfor %}
+
+Copies are counted cumulatively per format across all printings.
+
+7.2 **E-books** — {{ v('money.ebook_percent_of_net') }}% of Net Receipts.
+
+{% if 'audiobook' in opt('grant.formats') %}
+7.3 **Audiobooks** — {{ v('money.audiobook_percent_of_net') }}% of Net Receipts.
+{% else %}
+7.3 **Audiobooks** — not licensed; audio rights stay with the Author (clause 3).
+{% endif %}
+
+7.4 **Special sales** (bulk, institutional or sales at a discount above 55% of MRP) — {{ v('money.special_sales_percent_of_net') }}% of Net Receipts, and only with the Author's prior written consent.
+
+7.5 **No zero-royalty copies** except free review and promotional copies, which shall not exceed {{ v('money.max_free_copies_per_edition') }} per edition without the Author's written consent.
+
+7.6 **Remainders** — the Publisher may remainder or dispose of stock only with the Author's prior written consent, after first offering her the stock at cost. A royalty of {{ v('money.remainder_percent_of_net') }}% of Net Receipts is payable on remainder sales.
+
+7.7 **Reserve against returns** — not more than {{ v('money.reserve_against_returns_percent') }}% of royalties, and only for the first two statements after publication.
+
+## 8. Statements, payment and audit
+
+8.1 The Publisher shall send {% if opt('statements') == 'quarterly' %}quarterly{% else %}half-yearly{% endif %} statements, made up to {% if opt('statements') == 'quarterly' %}30 June, 30 September, 31 December and 31 March{% else %}30 September and 31 March{% endif %}, within 30 days of each period end, showing for each format: copies printed, copies sold, copies returned, free copies, MRP, Net Receipts and royalty due. Payment shall accompany each statement.
+
+8.2 Late payments carry interest at {{ v('money.late_payment_interest_percent') }}% per year.
+
+8.3 **No set-off.** The Publisher shall not withhold or set off any sum due under this Agreement against any claim under any other agreement. Any withholding for a claim under this Agreement is limited to the amount claimed, and must be released if no proceedings begin within 6 months.
+
+8.4 **Audit.** Once a year the Author or her chartered accountant may inspect and copy the Publisher's records relating to the Work on 15 days' notice. If the inspection shows an under-payment of more than 5% for any period, the Publisher shall pay the shortfall with interest and the cost of the inspection.
+
+## 9. Credit and copyright notice
+
+9.1 The Author's name shall appear on the front cover, spine, title page and all marketing, in the form she approves. Every copy shall carry the notice: "© {{ v('author.name') }}". The Author's right to claim authorship and to object to distortion or mutilation of the Work under section 57 of the Copyright Act, 1957 is not waived.
+
+## 10. Promotion
+
+10.1 The Publisher shall share a written marketing plan with the Author at least 60 days before publication and use its best efforts to promote the Work through retail, online and media channels.
+
+10.2 The Author shall take part in up to {{ v('promotion.events_included_per_year') }} promotional events a year at dates agreed with her, with {{ v('promotion.travel') }}. Further events attract a fee of ₹ {{ v('promotion.appearance_fee_per_event') }} per event.
+
+10.3 The Author shall receive {{ v('promotion.author_copies') }} free copies of each edition and may buy further copies at {{ v('promotion.author_discount_percent') }}% discount, and may sell them at her own events.
+{% if opt('promotion.film_tie_in_edition') %}
+10.4 If a film or series based on the Work or on the Author's earlier books is produced, the Publisher shall, with the Author's approval of the design, issue a film tie-in edition and co-ordinate its promotion with the film's marketing. The Author shall be paid royalties on the tie-in edition as on any other edition.
+{% endif %}
+
+## 11. Warranties, legal reading and indemnities
+
+11.1 The Author warrants that, to the best of her knowledge, the Work is original and does not infringe the copyright of any person.
+
+11.2 {% if opt('legal_vetting_by_publisher') %}Because the Work concerns real people and events, the Publisher shall, at its own cost and before publication, obtain a legal reading of the text for defamation and privacy risk, and shall discuss any recommended changes with the Author. Changes require her approval under clause 5.{% else %}The parties shall agree in writing how any pre-publication legal reading is arranged and paid for.{% endif %}
+
+11.3 The Author's liability under any indemnity is limited to loss caused by a breach of clause 11.1 and shall not exceed {{ v('indemnity_cap') }}. The Author is not liable for any change, addition, title, cover or marketing material made or chosen by the Publisher.
+
+11.4 The Publisher indemnifies the Author against all claims arising from anything the Publisher adds to or changes in the Work, its marketing or packaging, and from any breach of this Agreement by the Publisher.
+
+## 12. Piracy and infringement
+
+12.1 The Publisher shall act promptly, at its own cost, against piracy of the Granted Formats and keep the Author informed. Any damages recovered, after reasonable costs, shall be shared equally. Nothing limits the Author's own right to sue for infringement of her copyright, including in the court where she resides under section 62 of the Copyright Act, 1957.
+
+## 13. Reversion of rights
+
+13.1 All rights granted revert to the Author automatically, without any payment by her, on the earliest of:
+
+- (a) the end of the Term;
+- (b) the Work being out of print — meaning fewer than 250 copies sold across all Granted Formats in two consecutive statement periods, or the Work not being available for sale in print in India — and the Publisher not reissuing it within 3 months of the Author's written request;
+- (c) the Publisher failing to pay any sum due within 30 days of written notice;
+- (d) the Publisher's insolvency, winding up, or a change in its control without the Author's consent;
+- (e) termination under clause 4.2 or clause 14.
+
+13.2 On reversion, the Publisher shall stop selling within 60 days, account for all sales, and offer the Author the remaining stock and the print-ready files at cost.
+
+## 14. Termination
+
+14.1 The Author may terminate this Agreement if the Publisher commits a material breach and fails to cure it within 30 days of written notice. The Publisher may terminate only if the Author fails to deliver the manuscript as provided in clause 6.1.
+
+## 15. Assignment
+
+15.1 The Publisher may not assign or transfer this Agreement or any right under it without the Author's prior written consent.
+
+## 16. Next work
+
+{% if opt('next_work_option') == 'first_look_30_days' %}16.1 The Author shall send the Publisher a proposal for her next book before offering it elsewhere. The Publisher may make an offer within 30 days. The Author is free to accept any other offer after that period, and the Publisher has no right to match it.{% else %}16.1 The Publisher has no option, right of first refusal, first look or matching right over any future work of the Author.{% endif %}
+
+## 17. Confidentiality
+
+17.1 Each party shall keep the financial terms of this Agreement confidential, except with its legal, tax and financial advisers or as required by law. Nothing restricts the Author from speaking or writing about her life, her books or her experience of publishing.
+
+## 18. Disputes
+
+18.1 The parties shall first try to resolve any dispute by good-faith discussion for 30 days. Any unresolved dispute shall be referred to a sole arbitrator appointed by mutual agreement under the Arbitration and Conciliation Act, 1996. The seat and venue of arbitration shall be **{{ v('dispute.seat') }}**, and the language English.
+
+18.2 Either party may apply to a competent court for urgent interim relief, including an injunction. Subject to clause 18.1, the courts at {{ v('dispute.seat') }} have jurisdiction.
+
+## 19. General
+
+19.1 This Agreement is governed by the laws of India.
+
+19.2 Stamp duty on this Agreement shall be borne by the Publisher.
+
+19.3 This Agreement is the entire agreement between the parties on its subject. Any amendment or waiver must be in writing and signed by both parties.
+
+19.4 Notices shall be sent by registered post and by e-mail to the addresses above.
+
+19.5 Every page of this Agreement shall be initialled by both parties. No blank space may remain at signing.
+
+19.6 Clauses 3, 8, 9, 11, 12, 13.2, 17 and 18 survive termination.
+
+**IN WITNESS WHEREOF** the parties have signed this Agreement on the date and at the place first written above.
+
+Signed by the Author: ____________________ Name: {{ v('author.name') }}
+
+Signed for the Publisher: ____________________ Name: {{ v('publisher.signatory_name') }}, {{ v('publisher.signatory_designation') }}
+
+Witness 1: ____________________ Name and address: ____________________
+
+Witness 2: ____________________ Name and address: ____________________
+
+## Schedule A — The Work
+
+Title: {{ v('work.title') }}
+
+Description: {{ v('work.description') }}
+
+Approximate length: {{ v('work.approx_words') }} words
+
+## Schedule B — Authority of signatory
+
+[Attach the Publisher's board resolution authorising the signatory.]
