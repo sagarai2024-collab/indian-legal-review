@@ -25,6 +25,13 @@ from pathlib import Path
 
 import yaml
 
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")  # Windows consoles default to cp1252
+    except (AttributeError, ValueError):
+        pass
+
+
 HERE = Path(__file__).resolve().parent
 PLAYBOOK = HERE.parent / "playbook"
 RANK = {"GREEN": 0, "YELLOW": 1, "RED": 2}
@@ -231,7 +238,7 @@ def main():
             print("WARN ", w)
         for e in errors:
             print("FAIL ", e)
-        print("PASS" if not errors else f"{len(errors)} error(s) — report must be corrected before it is shown")
+        print("PASS" if not errors else f"{len(errors)} error(s) - report must be corrected before it is shown")
     if not errors and a.render:
         Path(a.render).write_text(render(report, prescan, unverified), encoding="utf-8")
         if not a.json:

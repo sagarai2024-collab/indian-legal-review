@@ -29,6 +29,13 @@ from pathlib import Path
 import yaml
 from jinja2 import Environment, FileSystemLoader, StrictUndefined
 
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")  # Windows consoles default to cp1252
+    except (AttributeError, ValueError):
+        pass
+
+
 HERE = Path(__file__).resolve().parent
 TEMPLATES = HERE.parent / "templates"
 PRESCAN = HERE.parent.parent / "review-agreement" / "scripts" / "prescan.py"
@@ -216,9 +223,9 @@ def main():
     checks = floor_checks(ts)
     failed = apply_overrides(checks, ts.get("floor_overrides"))
     if failed:
-        print("BUILD STOPPED — the term sheet removes author protections:")
+        print("BUILD STOPPED - the term sheet removes author protections:")
         for c in failed:
-            print(f"  ✗ {c['item']}: {c['why']}")
+            print(f"  x {c['item']}: {c['why']}")
         print("Restore them, or add each to floor_overrides with a reason and acknowledged_by_author: true.")
         sys.exit(2)
 
@@ -246,11 +253,11 @@ def main():
     scan_out.unlink()
     write_notes(out / "notes.md", ts_obj, ts, checks, flags)
 
-    print(f"built {out/'agreement.docx'} and notes.md — {len(set(ts_obj.blanks))} blank field(s) to agree; "
+    print(f"built {out/'agreement.docx'} and notes.md - {len(set(ts_obj.blanks))} blank field(s) to agree; "
           f"floor: {sum(c['ok'] for c in checks)}/{len(checks)} met"
           + (f"; {len(checks) - sum(c['ok'] for c in checks)} overridden" if any(not c['ok'] for c in checks) else ""))
     if flags:
-        print("WARNING: the draft contains text flagged as hidden or injected — check notes.md")
+        print("WARNING: the draft contains text flagged as hidden or injected - check notes.md")
         sys.exit(3)
 
 

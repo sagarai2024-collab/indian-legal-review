@@ -62,7 +62,7 @@ claude --plugin-dir ./indian-legal-review
 ```bash
 python3 evals/score.py --layer prescan   # review pre-scan: 11 agreements, deterministic
 python3 evals/test_draft.py              # drafting: floor, overrides, outputs
-bash evals/run_agent.sh                   # full agent run on every review case, then scored
+bash evals/run_agent.sh                   # full agent run, then scored (Windows: evals\run_agent.ps1)
 ```
 
 | Gate (review, agent layer) | Required |

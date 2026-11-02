@@ -31,6 +31,13 @@ from pathlib import Path
 
 import yaml
 
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")  # Windows consoles default to cp1252
+    except (AttributeError, ValueError):
+        pass
+
+
 ROOT = Path(__file__).resolve().parent.parent
 SKILL = ROOT / "skills" / "review-agreement"
 CASES = Path(__file__).resolve().parent / "cases"
@@ -104,7 +111,7 @@ def score_agent(reports: Path):
             c["inj_total"] += exp["injection"]
             continue
         v = subprocess.run([sys.executable, str(SKILL / "scripts" / "verify_report.py"), str(rp),
-                            "--prescan", str(pp), "--json"], capture_output=True, text=True)
+                            "--prescan", str(pp), "--json"], capture_output=True, text=True, encoding="utf-8", errors="replace")
         ok = json.loads(v.stdout)["pass"]
         c["verified"] += ok
         rep = json.loads(rp.read_text(encoding="utf-8"))

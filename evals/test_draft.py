@@ -16,6 +16,13 @@ from pathlib import Path
 
 import yaml
 
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")  # Windows consoles default to cp1252
+    except (AttributeError, ValueError):
+        pass
+
+
 ROOT = Path(__file__).resolve().parent.parent
 DRAFT = ROOT / "skills" / "draft-agreement"
 BUILD = DRAFT / "scripts" / "build_agreement.py"
@@ -42,7 +49,7 @@ with tempfile.TemporaryDirectory() as tmp:
     for t in ("publishing", "film_life_rights"):
         out = tmp / t
         r = subprocess.run([sys.executable, str(BUILD), str(DRAFT / "termsheets" / f"{t}.example.yaml"), "--out-dir", str(out)],
-                           capture_output=True, text=True)
+                           capture_output=True, text=True, encoding="utf-8", errors="replace")
         check(r.returncode == 0, f"{t}: example builds ({r.stdout.strip() or r.stderr.strip()})")
         check((out / "agreement.docx").exists() and (out / "notes.md").exists(), f"{t}: docx and notes written")
         md = (out / "agreement.md").read_text(encoding="utf-8")
@@ -60,7 +67,7 @@ with tempfile.TemporaryDirectory() as tmp:
     ts["money"]["statutory_royalty_acknowledged"] = False
     bad = tmp / "bad.yaml"
     bad.write_text(yaml.safe_dump(ts, sort_keys=False), encoding="utf-8")
-    r = subprocess.run([sys.executable, str(BUILD), str(bad), "--out-dir", str(tmp / "bad")], capture_output=True, text=True)
+    r = subprocess.run([sys.executable, str(BUILD), str(bad), "--out-dir", str(tmp / "bad")], capture_output=True, text=True, encoding="utf-8", errors="replace")
     check(r.returncode == 2 and "statutory_royalty_acknowledged" in r.stdout, "floor breach without override stops the build")
 
     ts["floor_overrides"] = [
@@ -68,12 +75,12 @@ with tempfile.TemporaryDirectory() as tmp:
         {"item": "statutory_royalty_acknowledged", "reason": "test", "acknowledged_by_author": False},
     ]
     bad.write_text(yaml.safe_dump(ts, sort_keys=False), encoding="utf-8")
-    r = subprocess.run([sys.executable, str(BUILD), str(bad), "--out-dir", str(tmp / "bad")], capture_output=True, text=True)
+    r = subprocess.run([sys.executable, str(BUILD), str(bad), "--out-dir", str(tmp / "bad")], capture_output=True, text=True, encoding="utf-8", errors="replace")
     check(r.returncode == 2, "override without author acknowledgement is rejected")
 
     ts["floor_overrides"][1]["acknowledged_by_author"] = True
     bad.write_text(yaml.safe_dump(ts, sort_keys=False), encoding="utf-8")
-    r = subprocess.run([sys.executable, str(BUILD), str(bad), "--out-dir", str(tmp / "ok")], capture_output=True, text=True)
+    r = subprocess.run([sys.executable, str(BUILD), str(bad), "--out-dir", str(tmp / "ok")], capture_output=True, text=True, encoding="utf-8", errors="replace")
     notes = (tmp / "ok" / "notes.md").read_text(encoding="utf-8") if (tmp / "ok" / "notes.md").exists() else ""
     check(r.returncode == 0 and notes.count("OVERRIDDEN") == 2, "acknowledged overrides build and are shown in notes")
 

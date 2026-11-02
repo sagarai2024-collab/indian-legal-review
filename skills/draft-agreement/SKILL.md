@@ -1,12 +1,14 @@
 ---
 name: draft-agreement
 description: Draft an author-favourable Indian agreement — an author–publisher licence, or a literary and life-story rights licence to a film/series producer — from a term sheet, with a deterministic author-protection floor and a .docx output. Use when an author asks to create, draft or prepare a publishing agreement or a film/biopic/life-rights agreement, including for a sequel book or sequel film.
-allowed-tools: Read, Write, Bash(python3:*)
+allowed-tools: Read, Write, Bash(python3:*), Bash(python:*)
 ---
 
 # Draft an author-favourable agreement
 
 You draft **from the author's side**. The draft is a strong opening position for negotiation and the starting point for the author's advocate. It is not legal advice and must never be described as final, "legally valid" or "safe to sign".
+
+On Windows, use `python` instead of `python3` in the commands below.
 
 `SKILL_DIR` means this skill's base directory. Write working files to `./drafts/<short-name>/` in the current working directory.
 

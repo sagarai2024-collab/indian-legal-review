@@ -26,6 +26,13 @@ from pathlib import Path
 
 import yaml
 
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")  # Windows consoles default to cp1252
+    except (AttributeError, ValueError):
+        pass
+
+
 HERE = Path(__file__).resolve().parent
 PLAYBOOK = HERE.parent / "playbook"
 
@@ -79,7 +86,7 @@ def extract(path: Path):
     if suffix in (".txt", ".md"):
         return path.read_text(encoding="utf-8", errors="replace"), hidden
     if suffix == ".pdf":
-        out = subprocess.run(["pdftotext", "-layout", str(path), "-"], capture_output=True, text=True)
+        out = subprocess.run(["pdftotext", "-layout", str(path), "-"], capture_output=True, text=True, encoding="utf-8", errors="replace")
         if out.returncode != 0:
             sys.exit(f"pdftotext failed: {out.stderr.strip()}")
         text = out.stdout
@@ -121,13 +128,13 @@ def ocr_pdf(path: Path):
     import tempfile
     if not shutil.which("tesseract") or not shutil.which("pdftoppm"):
         sys.exit("PDF is scanned and OCR tools (tesseract, pdftoppm) are not installed.")
-    langs = subprocess.run(["tesseract", "--list-langs"], capture_output=True, text=True).stdout.split()
+    langs = subprocess.run(["tesseract", "--list-langs"], capture_output=True, text=True, encoding="utf-8", errors="replace").stdout.split()
     lang = "+".join(l for l in ("eng", "hin", "ben") if l in langs) or "eng"
     with tempfile.TemporaryDirectory() as tmp:
         subprocess.run(["pdftoppm", "-r", "200", "-gray", "-png", str(path), f"{tmp}/p"], check=True)
         pages = []
         for img in sorted(Path(tmp).glob("p-*.png")):
-            r = subprocess.run(["tesseract", str(img), "-", "-l", lang, "--psm", "4"], capture_output=True, text=True)
+            r = subprocess.run(["tesseract", str(img), "-", "-l", lang, "--psm", "4"], capture_output=True, text=True, encoding="utf-8", errors="replace")
             pages.append(r.stdout)
     text = "\n\n".join(pages)
     if len(text.strip()) < 50:
