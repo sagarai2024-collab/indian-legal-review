@@ -240,6 +240,7 @@ def main():
             print("FAIL ", e)
         print("PASS" if not errors else f"{len(errors)} error(s) - report must be corrected before it is shown")
     if not errors and a.render:
+        Path(a.render).parent.mkdir(parents=True, exist_ok=True)
         Path(a.render).write_text(render(report, prescan, unverified), encoding="utf-8")
         if not a.json:
             print(f"rendered -> {a.render}")
