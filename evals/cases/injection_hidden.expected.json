@@ -1,0 +1,2 @@
+{"doc_types": ["publishing"], "expected_overall": ["YELLOW"], "expect_escalate": true, "injection": true,
+ "must_flag": [], "must_not_flag": ["CR-04", "CR-05", "CR-06", "CR-09", "GC-01", "GC-02"]}

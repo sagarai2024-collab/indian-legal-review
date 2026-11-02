@@ -1,0 +1,118 @@
+# Statute index: the ONLY statutes and sections the agent may cite.
+# The citation verifier rejects anything not listed here.
+#
+# STATUS: DRAFT. Section numbers and titles were compiled from the bare acts
+# but have NOT yet been checked line-by-line by a practising advocate.
+# Set `text_checked: true` per section only after checking it against the
+# official text on India Code (https://www.indiacode.nic.in/).
+# While any cited section has text_checked: false, the report shows a banner.
+
+index_meta:
+  advocate_verified: false
+  last_reviewed: "2026-11-02"
+  official_source: "https://www.indiacode.nic.in/"
+
+statutes:
+  copyright_act_1957:
+    title: "The Copyright Act, 1957"
+    status: in_force
+    in_force_from: "1958-01-21"
+    notes: "Major amendments 1994 and 2012 (2012 amendment added s.18(1) 2nd/3rd provisos and s.19(8)-(10))."
+    sections:
+      "2(d)":  {title: "Definition of 'author' (literary work: the author; film: the producer)", text_checked: false}
+      "13":    {title: "Works in which copyright subsists", text_checked: false}
+      "14":    {title: "Meaning of copyright (incl. adaptation, translation, making a cinematograph film of the work)", text_checked: false}
+      "17":    {title: "First owner of copyright (incl. 2012 proviso protecting authors of works incorporated in films)", text_checked: false}
+      "18":    {title: "Assignment of copyright (future works; unknown media; non-assignable film royalties)", text_checked: false}
+      "19":    {title: "Mode of assignment (writing, identification, royalty, lapse, deemed 5 years, deemed India)", text_checked: false}
+      "22":    {title: "Term of copyright in published literary works (life + 60 years)", text_checked: false}
+      "26":    {title: "Term of copyright in cinematograph films", text_checked: false}
+      "30":    {title: "Licences by owners of copyright (must be in writing)", text_checked: false}
+      "30A":   {title: "Application of section 19 to licences", text_checked: false}
+      "45":    {title: "Registration of copyright (optional)", text_checked: false}
+      "57":    {title: "Author's special rights (paternity and integrity)", text_checked: false}
+      "62":    {title: "Jurisdiction of court over copyright matters", text_checked: false}
+
+  contract_act_1872:
+    title: "The Indian Contract Act, 1872"
+    status: in_force
+    in_force_from: "1872-09-01"
+    sections:
+      "10":  {title: "What agreements are contracts", text_checked: false}
+      "11":  {title: "Who are competent to contract (minors not competent)", text_checked: false}
+      "14":  {title: "Free consent", text_checked: false}
+      "23":  {title: "What considerations and objects are lawful", text_checked: false}
+      "27":  {title: "Agreement in restraint of trade void", text_checked: false}
+      "28":  {title: "Agreements in restraint of legal proceedings void", text_checked: false}
+      "73":  {title: "Compensation for loss caused by breach of contract", text_checked: false}
+      "74":  {title: "Compensation for breach where penalty stipulated", text_checked: false}
+      "124": {title: "Contract of indemnity defined", text_checked: false}
+
+  arbitration_act_1996:
+    title: "The Arbitration and Conciliation Act, 1996"
+    status: in_force
+    in_force_from: "1996-08-22"
+    sections:
+      "7":  {title: "Arbitration agreement (must be in writing)", text_checked: false}
+      "20": {title: "Place (seat) of arbitration", text_checked: false}
+
+  cpc_1908:
+    title: "The Code of Civil Procedure, 1908"
+    status: in_force
+    sections:
+      "20": {title: "Other suits to be instituted where defendants reside or cause of action arises", text_checked: false}
+
+  stamp_act_1899:
+    title: "The Indian Stamp Act, 1899 (read with the stamp law of the State of execution)"
+    status: in_force
+    notes: "Stamp duty rates are set by each State. The agent must never state a rate; it points to the State schedule."
+    sections:
+      "35": {title: "Instruments not duly stamped inadmissible in evidence", text_checked: false}
+
+  bns_2023:
+    title: "The Bharatiya Nyaya Sanhita, 2023"
+    status: in_force
+    in_force_from: "2024-07-01"
+    sections:
+      "72":  {title: "Disclosure of identity of victim of certain offences (formerly IPC 228A)", text_checked: false}
+      "356": {title: "Defamation (formerly IPC 499/500)", text_checked: false}
+
+  ipc_1860:
+    title: "The Indian Penal Code, 1860"
+    status: repealed
+    repealed_on: "2024-07-01"
+    replaced_by: bns_2023
+    notes: "Cite only for acts before 1 July 2024. Section map: 228A -> BNS 72; 499/500 -> BNS 356."
+    section_map:
+      "228A": "72"
+      "499": "356"
+      "500": "356"
+    sections:
+      "228A": {title: "Disclosure of identity of victim of certain offences (repealed)", text_checked: false}
+      "499":  {title: "Defamation (repealed)", text_checked: false}
+      "500":  {title: "Punishment for defamation (repealed)", text_checked: false}
+
+  jj_act_2015:
+    title: "The Juvenile Justice (Care and Protection of Children) Act, 2015"
+    status: in_force
+    sections:
+      "74": {title: "Prohibition on disclosure of identity of children", text_checked: false}
+
+  pocso_2012:
+    title: "The Protection of Children from Sexual Offences Act, 2012"
+    status: in_force
+    sections:
+      "23": {title: "Procedure for media (no disclosure of child's identity)", text_checked: false}
+
+  dpdp_2023:
+    title: "The Digital Personal Data Protection Act, 2023"
+    status: in_force
+    notes: "Rules and commencement are phased; confirm which provisions are in force on the document date."
+    sections:
+      "6": {title: "Consent", text_checked: false}
+
+  constitution_of_india:
+    title: "The Constitution of India"
+    status: in_force
+    sections:
+      "Article 21": {title: "Protection of life and personal liberty (includes the right to privacy)", text_checked: false}

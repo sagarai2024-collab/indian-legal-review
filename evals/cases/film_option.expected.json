@@ -1,0 +1,2 @@
+{"doc_types": ["film_option"], "expected_overall": ["RED"], "expect_escalate": true, "injection": false,
+ "must_flag": ["FO-01", "FO-02"], "must_not_flag": ["CR-05", "CR-06", "CR-11", "CR-09"]}

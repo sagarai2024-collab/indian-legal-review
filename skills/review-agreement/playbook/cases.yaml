@@ -1,0 +1,47 @@
+# Case-law index: the ONLY judgments the agent may cite.
+# STATUS: DRAFT. Every entry is `verified: false` until an advocate confirms the
+# citation and that the proposition below is still good law. The agent may cite
+# an unverified case only as "reported position — verify", never as settled law.
+
+cases:
+  rajagopal_1994:
+    name: "R. Rajagopal v. State of Tamil Nadu"
+    citation: "(1994) 6 SCC 632"
+    court: "Supreme Court of India"
+    proposition: "Publishing a person's life story without consent can violate privacy; matters of public record are an exception."
+    verified: false
+
+  puttaswamy_2017:
+    name: "Justice K.S. Puttaswamy (Retd.) v. Union of India"
+    citation: "(2017) 10 SCC 1"
+    court: "Supreme Court of India (nine-judge bench)"
+    proposition: "Privacy is a fundamental right under Article 21."
+    verified: false
+
+  phoolan_devi_1995:
+    name: "Phoolan Devi v. Shekhar Kapoor"
+    citation: "1995 (Delhi High Court) — confirm reporter citation"
+    court: "Delhi High Court"
+    proposition: "Film based on a living person's life restrained where it exceeded her consent and intruded on privacy."
+    verified: false
+
+  krishna_kishore_singh:
+    name: "Krishna Kishore Singh v. Sarla A. Saraogi"
+    citation: "Delhi High Court — confirm citation and final outcome"
+    court: "Delhi High Court"
+    proposition: "Reported position: personality and privacy rights are personal and do not pass to heirs after death."
+    verified: false
+
+  deepa_jayakumar:
+    name: "Deepa Jayakumar v. A.L. Vijay"
+    citation: "Madras High Court — confirm citation"
+    court: "Madras High Court"
+    proposition: "Reported position: posthumous privacy claims by relatives over a biopic did not succeed."
+    verified: false
+
+  abc_laminart_1989:
+    name: "A.B.C. Laminart Pvt. Ltd. v. A.P. Agencies"
+    citation: "(1989) 2 SCC 163"
+    court: "Supreme Court of India"
+    proposition: "Parties may choose one of several courts that already have jurisdiction, but cannot confer jurisdiction on a court that has none."
+    verified: false

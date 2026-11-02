@@ -1,0 +1,131 @@
+# General contract rules applied to every supported document type.
+
+rules:
+  - id: GC-01
+    title: Restraint on the author working after the agreement ends
+    applies_to: [any]
+    type: flag
+    detect: ['shall not (?:write|publish|author|engage|work).{0,120}(?:after|following|post)[- ](?:the )?(?:expiry|termination|term)', 'non[- ]?compete', 'for a period of .{0,30}after (?:the )?(?:expiry|termination)', 'shall not .{0,40}(?:any|another|other) (?:publisher|producer|production house|studio)']
+    severity: RED
+    escalate: false
+    basis: statutory
+    citations: [{statute: contract_act_1872, section: "27"}]
+    explain: Agreements restraining anyone from a lawful profession, trade or business are void to that extent (s.27). Exclusivity during the term is usually fine; restraints after the term generally are not enforceable.
+    recommend: Limit exclusivity to the term and to the specific work, not the author's future writing.
+
+  - id: GC-02
+    title: Clause limiting the right to go to court or shortening the time to sue
+    applies_to: [any]
+    type: flag
+    detect: ['shall not (?:approach|move|file|initiate).{0,40}(?:court|legal proceedings)', 'within \w+ (?:days|months) .{0,60}(?:barred|waived|forfeited)', 'claims? shall be (?:barred|extinguished)', 'right to (?:sue|claim) shall (?:lapse|cease)']
+    severity: RED
+    escalate: true
+    basis: statutory
+    citations: [{statute: contract_act_1872, section: "28"}]
+    explain: An agreement that absolutely restricts a party from enforcing rights through the usual legal proceedings, or limits the time to do so, is void to that extent (s.28). Arbitration clauses are a recognised exception.
+    recommend: Remove the restriction, or replace it with a properly drafted arbitration clause.
+
+  - id: GC-03
+    title: Pre-fixed damages or penalty only against the author
+    applies_to: [any]
+    type: flag
+    detect: ['liquidated damages', 'penalty of', 'shall pay (?:a sum|an amount) of .{0,40}(?:as|by way of) (?:damages|penalty|compensation)', 'forfeit']
+    severity: YELLOW
+    escalate: false
+    basis: statutory
+    citations: [{statute: contract_act_1872, section: "74"}, {statute: contract_act_1872, section: "73"}]
+    explain: A stipulated sum is not automatically recoverable; courts award reasonable compensation up to that figure (s.74). One-sided penalties signal unequal bargaining.
+    recommend: Make damages mutual and proportionate, or delete the clause.
+
+  - id: GC-04
+    title: One-sided or uncapped indemnity from the author
+    applies_to: [any]
+    type: flag
+    detect: ['indemnif', 'hold harmless']
+    severity: YELLOW
+    escalate: false
+    basis: statutory
+    citations: [{statute: contract_act_1872, section: "124"}]
+    explain: Authors are commonly asked to indemnify against all claims, including claims caused by the producer's own changes to the story.
+    recommend: Limit the author's indemnity to breach of their own warranties, cap it (e.g. at fees received), and add a reciprocal indemnity for the producer's changes.
+
+  - id: GC-05
+    title: Arbitration clause without a clear seat, or unclear whether arbitration is binding
+    applies_to: [any]
+    type: flag
+    detect: ['arbitrat']
+    severity: YELLOW
+    escalate: false
+    basis: statutory
+    citations: [{statute: arbitration_act_1996, section: "7"}, {statute: arbitration_act_1996, section: "20"}]
+    explain: The arbitration agreement must be in writing (s.7). A missing or unclear seat (s.20) causes jurisdiction fights and extra cost.
+    recommend: State the seat (city), number of arbitrators, appointment method, language and that the Arbitration and Conciliation Act, 1996 applies.
+
+  - id: GC-06
+    title: Exclusive jurisdiction of a court unconnected to the parties or the contract
+    applies_to: [any]
+    type: flag
+    detect: ['exclusive jurisdiction', 'courts at', 'courts of', 'jurisdiction of the courts']
+    severity: YELLOW
+    escalate: false
+    basis: case_law
+    citations: [{statute: cpc_1908, section: "20"}, {statute: copyright_act_1957, section: "62"}, {case: abc_laminart_1989}]
+    explain: Parties may choose among courts that already have jurisdiction but cannot create jurisdiction in a court that has none. For copyright suits, s.62 also allows the author to sue where they reside or carry on business.
+    recommend: Choose a city connected to the parties, or keep the author's s.62 forum available.
+
+  - id: GC-07
+    title: Stamp duty — check the schedule of the State of execution
+    applies_to: [any]
+    type: judgement
+    severity: YELLOW
+    escalate: false
+    basis: statutory
+    citations: [{statute: stamp_act_1899, section: "35"}]
+    explain: Stamp duty depends on the State where the document is executed (or first brought into a State) and on how it is classified. An instrument not duly stamped is inadmissible in evidence until duty and penalty are paid (s.35).
+    recommend: Check the State's stamp schedule (or ask a local advocate or stamp vendor) before signing. This agent never states a stamp-duty amount.
+
+  - id: GC-08
+    title: Agreement may involve an unlawful object
+    applies_to: [any]
+    type: judgement
+    severity: RED
+    escalate: true
+    basis: statutory
+    citations: [{statute: contract_act_1872, section: "23"}]
+    explain: An agreement is void if its object or consideration is unlawful, fraudulent, injurious to others or opposed to public policy (s.23) — for example defaming a named person or disclosing protected identities.
+    recommend: Advocate review is mandatory before signing.
+
+  - id: GC-09
+    title: Foreign governing law or foreign courts
+    applies_to: [any]
+    type: flag
+    detect: ['laws of (?:the )?(?:state of )?(?:california|new york|england|delaware|singapore|united kingdom|united states|uae|dubai)', 'governed by (?:the )?(?:english|us|american|singapore|uk) law']
+    severity: YELLOW
+    escalate: true
+    basis: best_practice
+    citations: []
+    explain: This agent covers Indian law only. Foreign governing law changes how every clause is read.
+    recommend: Get advice from a lawyer qualified in the chosen law, or negotiate Indian law and an Indian seat.
+
+  - id: GC-10
+    title: Tax, TDS or GST obligations
+    applies_to: [any]
+    type: flag
+    detect: ['\btds\b', '\bgst\b', 'tax(?:es)? deducted', 'withholding', 'income[- ]tax']
+    severity: YELLOW
+    escalate: true
+    basis: best_practice
+    citations: []
+    explain: Tax treatment of royalties and lump sums changes often (the Income-tax Act, 2025 replaced the 1961 Act from 1 April 2026). This agent does not give tax positions.
+    recommend: Ask a chartered accountant to confirm TDS/GST treatment and who bears it.
+
+  - id: GC-11
+    title: Termination right only for the publisher/producer
+    applies_to: [any]
+    type: judgement
+    severity: YELLOW
+    escalate: false
+    basis: best_practice
+    citations: []
+    explain: If only one side can terminate (especially "for convenience"), the author carries all the risk.
+    recommend: Add mutual termination for material breach with a cure period, and termination by the author for non-payment.

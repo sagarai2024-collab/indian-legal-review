@@ -1,0 +1,222 @@
+# Copyright rules for publishing, film-rights and screenwriting agreements.
+# Schema (all rule files):
+#   id, title, applies_to, type (flag | missing | judgement),
+#   detect (regexes; for type flag) / require_any (regexes; for type missing),
+#   severity (RED | YELLOW), escalate (bool), basis (statutory | case_law | best_practice),
+#   citations [{statute, section} | {case}], explain, recommend
+# Regexes are Python, matched case-insensitively. They only nominate candidate
+# clauses; the agent must read the clause and confirm or reject the candidate.
+
+rules:
+  - id: CR-01
+    title: Assignment or licence not in writing / not signed by the author
+    applies_to: [publishing, film_option, film_assignment, screenwriter]
+    type: missing
+    require_any: ['signed\b', 'signature', 'in witness whereof', 'executed by']
+    severity: RED
+    escalate: true
+    basis: statutory
+    citations: [{statute: copyright_act_1957, section: "19"}, {statute: copyright_act_1957, section: "30"}]
+    explain: An assignment of copyright is not valid unless it is in writing and signed by the assignor or an authorised agent; licences must also be in writing.
+    recommend: Make sure the final document carries the author's (assignor's) signature, with date and place of execution.
+
+  - id: CR-02
+    title: Work not clearly identified
+    applies_to: [publishing, film_option, film_assignment, screenwriter]
+    type: judgement
+    severity: YELLOW
+    escalate: false
+    basis: statutory
+    citations: [{statute: copyright_act_1957, section: "19"}]
+    explain: The assignment must identify the work. Vague descriptions ("the author's story") create disputes over what was transferred.
+    recommend: Name the work by title, edition/ISBN or manuscript date, and attach a schedule if needed.
+
+  - id: CR-03
+    title: Rights assigned not specified
+    applies_to: [publishing, film_option, film_assignment, screenwriter]
+    type: judgement
+    severity: YELLOW
+    escalate: false
+    basis: statutory
+    citations: [{statute: copyright_act_1957, section: "19"}, {statute: copyright_act_1957, section: "14"}]
+    explain: The assignment must specify which rights are assigned (print, e-book, audio, translation, film/TV/OTT adaptation, merchandising, etc.).
+    recommend: List each right granted and state that rights not expressly granted stay with the author.
+
+  - id: CR-04
+    title: Duration of assignment not stated
+    applies_to: [publishing, film_assignment, screenwriter]
+    type: missing
+    require_any: ['(?:rights?|assign\w*|licen[cs]e\w*|grant\w*)[^\n]{0,250}?(?:for a (?:period|term) of|until \d|in perpetuity|full term of copyright)', '(?:period|term|duration) of (?:the |this )?(?:assignment|licen[cs]e|grant)', 'in perpetuity', 'perpetual', 'full term of copyright']
+    severity: YELLOW
+    escalate: false
+    basis: statutory
+    citations: [{statute: copyright_act_1957, section: "19"}]
+    explain: If the period of assignment is not stated, it is deemed to be five years from the date of assignment (s.19(5)).
+    recommend: State the term expressly. Authors should resist "perpetuity"/"full term of copyright" without a reversion mechanism.
+
+  - id: CR-05
+    title: Territory not stated
+    applies_to: [publishing, film_option, film_assignment, screenwriter]
+    type: missing
+    require_any: ['territor', 'worldwide', 'throughout the world', 'the universe', '\bindia only\b', 'within india']
+    severity: YELLOW
+    escalate: false
+    basis: statutory
+    citations: [{statute: copyright_act_1957, section: "19"}]
+    explain: If territorial extent is not specified, the assignment is presumed to extend only within India (s.19(6)).
+    recommend: State the territory expressly (India, worldwide, or a list of countries/languages).
+
+  - id: CR-06
+    title: Royalty or consideration not specified
+    applies_to: [publishing, film_option, film_assignment, screenwriter]
+    type: missing
+    require_any: ['royalt', 'consideration of', 'sum of', '\bfee\b', 'rs\.?\s?\d', 'inr\s?\d', '₹\s?\d', 'rupees']
+    severity: RED
+    escalate: true
+    basis: statutory
+    citations: [{statute: copyright_act_1957, section: "19"}]
+    explain: The assignment must specify the royalty and any other consideration payable to the author or legal heirs (s.19(3)).
+    recommend: State the amount, royalty rate, base (MRP/net receipts), payment schedule, accounting statements and audit rights.
+
+  - id: CR-07
+    title: Clause defeating lapse for non-exploitation
+    applies_to: [publishing, film_assignment, screenwriter]
+    type: flag
+    detect: ['notwithstanding section 19\(4\)', 'shall not lapse', 'irrespective of (?:whether|any) exploitation', 'no obligation to (?:publish|produce|exploit)']
+    severity: YELLOW
+    escalate: false
+    basis: statutory
+    citations: [{statute: copyright_act_1957, section: "19"}]
+    explain: Unless the agreement says otherwise, rights lapse if the assignee does not exercise them within one year (s.19(4)). Clauses removing this let the assignee sit on the work indefinitely.
+    recommend: Add a deadline to publish or begin production, with automatic reversion of rights to the author if it is missed.
+
+  - id: CR-08
+    title: Grant of media "now known or hereafter devised"
+    applies_to: [publishing, film_option, film_assignment, screenwriter]
+    type: flag
+    detect: ['hereafter (?:devised|invented|known|developed)', 'now known or (?:later|hereafter)', 'yet to be (?:invented|devised)', 'all media(?: and formats)?', 'any and all media']
+    severity: YELLOW
+    escalate: false
+    basis: statutory
+    citations: [{statute: copyright_act_1957, section: "18"}]
+    explain: An assignment does not extend to a medium or mode of exploitation that did not exist or was not in commercial use when it was made, unless the assignment specifically refers to it (s.18(1), second proviso). Blanket future-media language may be ineffective and should be read narrowly.
+    recommend: List the media actually granted. Authors can keep future media, or require a separate negotiated fee for them.
+
+  - id: CR-09
+    title: Author waives or assigns film royalties beyond cinema-hall exhibition
+    applies_to: [film_option, film_assignment, screenwriter]
+    type: flag
+    detect: ['waive[sd]?\b.{0,80}royalt', 'royalt.{0,80}waive', 'no (?:further )?royalt', 'not be entitled to (?:any )?(?:further )?(?:royalt|share)', 'one[- ]time (?:payment|fee|consideration).{0,120}(?:all|full and final)', 'full and final consideration', 'buy[- ]?out']
+    severity: RED
+    escalate: true
+    basis: statutory
+    citations: [{statute: copyright_act_1957, section: "18"}, {statute: copyright_act_1957, section: "19"}]
+    explain: The author of a literary work included in a film cannot assign or waive the right to an equal share of royalties for use of the work other than communication to the public with the film in a cinema hall (for example OTT, TV, music), except to legal heirs or a copyright society; contrary agreements are void (s.18(1) third proviso; s.19(9)).
+    recommend: Delete the waiver. Add a royalty-sharing clause for non-theatrical exploitation, with statements and audit rights.
+
+  - id: CR-10
+    title: Waiver of moral rights (credit / integrity)
+    applies_to: [publishing, film_option, film_assignment, screenwriter]
+    type: flag
+    detect: ['moral rights?', 'waive[sd]?.{0,60}(?:credit|attribution|paternity|integrity)', 'right to (?:object|claim authorship)', 'section 57']
+    severity: YELLOW
+    escalate: true
+    basis: statutory
+    citations: [{statute: copyright_act_1957, section: "57"}]
+    explain: The author's rights to claim authorship and to object to distortion or mutilation that harms honour or reputation exist independently of copyright and survive assignment (s.57). Whether and how far they can be waived is not settled; an advocate should review any waiver.
+    recommend: Replace blanket waivers with an agreed adaptation-freedom clause plus a guaranteed screen/cover credit.
+
+  - id: CR-11
+    title: No credit / attribution clause
+    applies_to: [publishing, film_option, film_assignment, screenwriter]
+    type: missing
+    require_any: ['credit', 'attribution', 'based on the (?:book|novel|memoir|story)', 'name of the author']
+    severity: YELLOW
+    escalate: false
+    basis: statutory
+    citations: [{statute: copyright_act_1957, section: "57"}]
+    explain: The author has a right to claim authorship (s.57), but the form, size and placement of credit should be agreed in writing.
+    recommend: Specify the credit wording (e.g. "Based on the book <title> by <author>"), where it appears (screen, poster, trailer, platform listing) and remedies for omission.
+
+  - id: CR-12
+    title: Assignment of future or unwritten works (sequels, all future works)
+    applies_to: [publishing, film_option, film_assignment, screenwriter]
+    type: flag
+    detect: ['future works?', 'all (?:subsequent|future) (?:books|works|writings)', 'any work (?:hereafter|subsequently) (?:written|created)', 'first (?:refusal|look|negotiation).{0,60}(?:next|future|subsequent)']
+    severity: YELLOW
+    escalate: false
+    basis: statutory
+    citations: [{statute: copyright_act_1957, section: "18"}]
+    explain: An assignment of a future work takes effect only when the work comes into existence (s.18(1), first proviso). Broad grabs of all future works, or open-ended first-refusal rights over sequels, restrict the author's career.
+    recommend: Limit to a named sequel or a time-bound, priced first-negotiation right.
+
+  - id: CR-13
+    title: Literary work labelled "work for hire" / "contract of service" when the author is not an employee
+    applies_to: [publishing, film_assignment, screenwriter]
+    type: flag
+    detect: ['work(?:s)? (?:made )?for hire', 'contract of service', 'commissioned work', 'producer shall be the (?:first|sole) owner', 'deemed (?:author|first owner)']
+    severity: YELLOW
+    escalate: true
+    basis: statutory
+    citations: [{statute: copyright_act_1957, section: "17"}, {statute: copyright_act_1957, section: "2(d)"}]
+    explain: '"Work for hire" is a US concept. Under s.17 the author is the first owner unless an exception applies, and the 2012 proviso protects the right of authors of works incorporated in a film. Labelling a pre-existing book or an independent writer''s work as "for hire" may not transfer ownership, and may be used to deny royalties.'
+    recommend: Use an express assignment under s.18/19 that complies with s.19 (rights, term, territory, royalty), and keep the author's statutory royalty rights.
+
+  - id: CR-14
+    title: Unclear whether the grant is a licence or an assignment
+    applies_to: [publishing, film_option, film_assignment, screenwriter]
+    type: judgement
+    severity: YELLOW
+    escalate: false
+    basis: statutory
+    citations: [{statute: copyright_act_1957, section: "18"}, {statute: copyright_act_1957, section: "30"}]
+    explain: An assignment transfers ownership; a licence only permits use. Mixed language ("grants, licenses and assigns") leaves it unclear what the author keeps.
+    recommend: Use one clear operative verb and say which rights stay with the author.
+
+  - id: CR-15
+    title: No reversion / termination rights for the author
+    applies_to: [publishing, film_option, film_assignment, screenwriter]
+    type: missing
+    require_any: ['revert', 'reversion', 'rights shall (?:return|revert)', '(?:author|either party|both parties) may terminate']
+    severity: YELLOW
+    escalate: false
+    basis: best_practice
+    citations: []
+    explain: Without reversion, rights can stay with a publisher or producer who stops exploiting the work or stops paying.
+    recommend: Add reversion on non-payment, out-of-print status, failure to begin principal photography by a date, or insolvency.
+
+  - id: CR-16
+    title: Sequel, prequel, remake or derivative rights granted without separate payment
+    applies_to: [film_option, film_assignment, screenwriter]
+    type: flag
+    detect: ['sequel', 'prequel', 'remake', 'spin[- ]?off', 'derivative works?', 'web[- ]?series', 'television series']
+    severity: YELLOW
+    escalate: false
+    basis: statutory
+    citations: [{statute: copyright_act_1957, section: "14"}]
+    explain: Adaptation rights are separate rights under s.14. Granting every derivative right for one fee usually undervalues them.
+    recommend: Make each derivative right subject to an additional fee or a percentage of the original purchase price.
+
+  - id: FO-01
+    title: Option period or extension not defined
+    applies_to: [film_option]
+    type: missing
+    require_any: ['option period', 'option term', 'option shall (?:expire|lapse)', 'extend(?:ed)? the option']
+    severity: YELLOW
+    escalate: false
+    basis: best_practice
+    citations: []
+    explain: An option without a fixed period and paid extension terms can tie up the rights indefinitely.
+    recommend: Fix the option period (commonly 12–24 months), the extension fee, and automatic expiry with rights returning to the author.
+
+  - id: FO-02
+    title: Rights vest in the producer before the purchase price is paid
+    applies_to: [film_option, film_assignment]
+    type: flag
+    detect: ['rights shall vest.{0,60}(?:upon|on) (?:execution|signing)', 'vest(?:s|ed)? (?:immediately|forthwith)', 'irrespective of (?:payment|whether .{0,30}paid)', 'prior to (?:payment|receipt) of']
+    severity: RED
+    escalate: true
+    basis: best_practice
+    citations: [{statute: copyright_act_1957, section: "19"}]
+    explain: If ownership passes on signing but payment comes later (or never), the author loses the rights without being paid.
+    recommend: Make the assignment effective only on receipt of the full purchase price; until then only the option exists.

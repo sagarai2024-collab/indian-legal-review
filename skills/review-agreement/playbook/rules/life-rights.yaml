@@ -1,0 +1,99 @@
+# Life-rights rules (biopics, memoir adaptations, true-story films and series).
+# India has no single "life rights" statute. These rules rest on privacy
+# (Article 21), defamation, child-protection and data-protection law, and on
+# case law that MUST be verified by an advocate before release.
+
+rules:
+  - id: LR-01
+    title: Consent not given by the person whose life is depicted
+    applies_to: [life_rights]
+    type: judgement
+    severity: RED
+    escalate: true
+    basis: case_law
+    citations: [{statute: constitution_of_india, section: "Article 21"}, {case: rajagopal_1994}, {case: puttaswamy_2017}]
+    explain: The protection a life-rights agreement gives the producer depends on consent from the person depicted. If someone else signs (an agent, a relative, a former spouse) without written authority, the consent may not bind the subject.
+    recommend: The subject signs personally; if a representative signs, attach the written authority. Record the scope of consent (which events, which people, which media).
+
+  - id: LR-02
+    title: A minor is a party, or a child's life is depicted
+    applies_to: [life_rights, any]
+    type: flag
+    detect: ['\bminor\b', '\bchild(?:ren)?\b', 'aged \d{1,2}\b', 'years? old', '\bson\b', '\bdaughter\b', 'guardian']
+    severity: RED
+    escalate: true
+    basis: statutory
+    citations: [{statute: contract_act_1872, section: "11"}, {statute: jj_act_2015, section: "74"}, {statute: pocso_2012, section: "23"}]
+    explain: A minor is not competent to contract (s.11), so a minor's own signature does not bind them. Where a child is involved in proceedings under the JJ Act or POCSO, disclosing the child's identity is prohibited regardless of any consent.
+    recommend: Advocate review is mandatory. Check guardianship authority, whether any court or welfare proceedings concern the child, and whether the child must be fictionalised or anonymised.
+
+  - id: LR-03
+    title: Life of a sexual-offence victim, or identifying details of one
+    applies_to: [life_rights, any]
+    type: flag
+    detect: ['rape', 'sexual (?:assault|abuse|offen[cs]e|harassment)', 'molest', 'pocso', 'victim of (?:a )?sexual']
+    severity: RED
+    escalate: true
+    basis: statutory
+    citations: [{statute: bns_2023, section: "72"}, {statute: pocso_2012, section: "23"}]
+    explain: Disclosing the identity of a victim of certain sexual offences is itself an offence (BNS s.72, formerly IPC s.228A), subject to narrow exceptions. A contract cannot authorise what the statute forbids.
+    recommend: Advocate review is mandatory. Anonymise names, places and identifying details unless a statutory exception clearly applies.
+
+  - id: LR-04
+    title: Rights granted over a deceased person's life by heirs
+    applies_to: [life_rights]
+    type: flag
+    detect: ['deceased', 'late (?:shri|smt|mr|mrs|ms)\b', 'legal heirs?', 'estate of', 'posthumous', 'since passed away']
+    severity: YELLOW
+    escalate: true
+    basis: case_law
+    citations: [{case: krishna_kishore_singh}, {case: deepa_jayakumar}]
+    explain: Courts have reportedly held that privacy and personality rights are personal and do not pass to heirs. Heirs can still license their own stories, memoirs, letters and copyright, and can claim if they themselves are depicted.
+    recommend: Be clear about what the heirs actually own (their own stories, copyright in diaries or letters, access and cooperation) rather than the deceased person's "life rights".
+
+  - id: LR-05
+    title: Unlimited fictionalisation with no approval or consultation for the subject
+    applies_to: [life_rights]
+    type: flag
+    detect: ['fictionali[sz]', 'dramati[sz]', 'creative (?:liberty|licen[cs]e|freedom)', 'composite characters?', 'sole (?:and absolute )?discretion']
+    severity: YELLOW
+    escalate: false
+    basis: statutory
+    citations: [{statute: bns_2023, section: "356"}, {case: rajagopal_1994}]
+    explain: Fictionalised scenes presented as true can damage the subject's reputation. The subject's consent to depiction is not automatically consent to invented events.
+    recommend: Add a script-consultation right, a disclaimer card, a ban on inventing criminal or sexual conduct, and a factual-accuracy review for named real people.
+
+  - id: LR-06
+    title: Subject waives all claims (privacy, defamation, any cause of action) forever
+    applies_to: [life_rights]
+    type: flag
+    detect: ['waive[sd]?.{0,80}(?:all|any) (?:claims?|rights?|causes? of action)', 'release[sd]?.{0,60}(?:all|any) claims', 'shall not (?:sue|initiate|institute)', 'irrevocabl[ey].{0,60}waive', 'covenant not to sue']
+    severity: YELLOW
+    escalate: true
+    basis: statutory
+    citations: [{statute: contract_act_1872, section: "23"}, {statute: contract_act_1872, section: "28"}]
+    explain: Wide releases cover future scenes the subject has never seen. Agreements that absolutely restrict a party from enforcing rights in court are void to that extent (s.28), and terms opposed to public policy may be void (s.23).
+    recommend: Limit the waiver to the depiction actually approved, and keep claims for invented defamatory content.
+
+  - id: LR-07
+    title: Third parties (family, ex-partners, officials) depicted without their own consent
+    applies_to: [life_rights]
+    type: judgement
+    severity: YELLOW
+    escalate: true
+    basis: case_law
+    citations: [{case: rajagopal_1994}, {statute: bns_2023, section: "356"}]
+    explain: The subject can consent only for themselves. Other identifiable people keep their own privacy and defamation claims unless the material is from the public record.
+    recommend: Get separate releases from key identifiable people, or change names and details. Keep a source file for every factual claim.
+
+  - id: LR-08
+    title: Personal data collected without a stated purpose or consent
+    applies_to: [life_rights]
+    type: missing
+    require_any: ['personal data', 'data protection', 'keep [^.]{0,60}confidential', 'confidential(?:ity)? of', 'return [^.]{0,60}(?:documents|material|records|papers)', 'delet(?:e|ion) [^.]{0,40}(?:data|material|records)']
+    severity: YELLOW
+    escalate: false
+    basis: statutory
+    citations: [{statute: dpdp_2023, section: "6"}]
+    explain: Life-rights deals usually involve diaries, medical or legal records and family photographs. Processing personal data generally needs consent for a specified purpose.
+    recommend: Add a clause on what personal material is shared, for what purpose, how it is stored, and its return or deletion after production.

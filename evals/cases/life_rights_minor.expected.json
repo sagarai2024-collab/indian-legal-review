@@ -1,0 +1,2 @@
+{"doc_types": ["life_rights"], "expected_overall": ["RED"], "expect_escalate": true, "injection": false,
+ "must_flag": ["LR-02", "LR-03", "LR-05", "LR-06", "LR-08"], "must_not_flag": ["LR-04"]}

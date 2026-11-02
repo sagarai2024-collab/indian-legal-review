@@ -1,0 +1,16 @@
+name: evals
+on: [push, pull_request]
+jobs:
+  deterministic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: sudo apt-get install -y poppler-utils && pip install pyyaml python-docx
+      - name: Pre-scan layer (injection detection, scope, rule nomination)
+        run: python3 evals/score.py --layer prescan
+      - name: Verifier self-test on the committed sample report
+        run: |
+          mkdir -p /tmp/s && python3 skills/review-agreement/scripts/prescan.py evals/cases/injection_film_assignment.txt --out /tmp/s/prescan.json
+          python3 skills/review-agreement/scripts/verify_report.py examples/sample-report-injection-case.json --prescan /tmp/s/prescan.json

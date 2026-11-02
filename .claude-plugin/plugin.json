@@ -1,0 +1,10 @@
+{
+  "name": "indian-legal-review",
+  "version": "0.1.0",
+  "description": "Pre-legal review of Indian author, publishing, film-rights and life-rights agreements against the Copyright Act 1957, Contract Act 1872, BNS 2023 and related law — with a deterministic injection pre-scan, citation verifier and eval suite. Not legal advice.",
+  "author": {
+    "name": "Sagarika Chakraborty"
+  },
+  "license": "MIT",
+  "keywords": ["legal", "india", "copyright", "contracts", "film-rights", "life-rights", "evals", "prompt-injection"]
+}
