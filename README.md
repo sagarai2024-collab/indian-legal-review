@@ -102,4 +102,8 @@ evals/                        test agreements, expected results, scorers, drafti
 examples/                     sample verified review report
 ```
 
-MIT licence. Built by Sagarika Chakraborty.
+## Licence
+
+© 2026 Sagarika Chakraborty. Released under the [MIT Licence](LICENSE).
+
+The drafts and reports this software produces are not legal advice. Use them only with review by a practising advocate.
