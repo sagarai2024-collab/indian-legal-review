@@ -104,6 +104,6 @@ examples/                     sample verified review report
 
 ## Licence
 
-© 2026 Sagarika Chakraborty. Released under the [MIT Licence](LICENSE).
+© 2026 Sagarika Chakraborty. All rights reserved, see [LICENSE](LICENSE). Do not copy or reuse without written permission.
 
 The drafts and reports this software produces are not legal advice. Use them only with review by a practising advocate.
